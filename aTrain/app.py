@@ -5,12 +5,14 @@ import webview
 from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
 from flask import Flask
 from wakepy import keep
-
+from nicegui import ui
 from .api import api
 from .globals import EVENT_SENDER
 from .models import start_model_download, stop_all_downloads
 from .routes import routes
 from .transcription import stop_all_transcriptions
+from importlib.resources import files
+from aTrain.pages import transcribe
 
 app = Flask(__name__)
 app.register_blueprint(routes)
@@ -52,7 +54,8 @@ def cli() -> None:
 
     if args.command == "start":
         print("Running aTrain")
-        run_app()
+        # run_app()
+        ui.run(native=True, reload=False)
 
     if args.command == "dev":
         print("Running aTrain in dev mode")
