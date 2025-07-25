@@ -8,7 +8,8 @@ PAPER_LINK = "https://doi.org/10.1016/j.jbef.2024.100891"
 
 
 def footer():
-    with ui.footer(wrap=False).classes("bg-white justify-between items-center p-10"):
+    footer_classes = "bg-white justify-between items-center p-10"
+    with ui.footer(wrap=False, fixed=False).classes(footer_classes):
         ui.image(BANDAS_LOGO).props("height='50px' width='150px' fit='contain'")
         with ui.column(align_items="end", wrap=True).classes("gap-0"):
             ui.label(PAPER_TEXT).classes("text-black")
