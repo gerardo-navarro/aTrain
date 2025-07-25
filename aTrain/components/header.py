@@ -10,11 +10,8 @@ GITHUB_LINK = "https://github.com/JuergenFleiss/aTrain"
 def header():
     with ui.header().classes("bg-white justify-between items-center px-10"):
         with ui.row().classes("items-center"):
-            (
-                ui.button()
-                .props("color=white text-color=black icon=menu flat")
-                .classes("lt-md")
-            )
+            button_props = "color=white text-color=black icon=menu flat"
+            ui.button().props(button_props).classes("lt-md")
             ui.image(ATRAIN_LOGO).props("height=30px width=80px fit=contain")
         with ui.row().classes("items-center"):
             ui.image(GITHUB_LOGO).props("height=25px width=25px fit=contain")
