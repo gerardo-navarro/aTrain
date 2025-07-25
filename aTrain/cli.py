@@ -23,4 +23,5 @@ def start():
 @cli.command()
 def dev():
     """Start aTrain in web mode."""
+    print("Running aTrain in web mode")
     ui.run(native=False, reload=True)
