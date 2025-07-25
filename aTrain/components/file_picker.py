@@ -10,8 +10,8 @@ def file_picker() -> ui.upload:
 
     with ui.row().classes("gap-0 items-center"):
         select_button = ui.button("Select File")
-        div_classes = "border border-rounded w-32 h-8 overflow-hidden"
-        with ui.element("div").classes(div_classes):
+        with ui.element("div") as div:
+            div.classes("border border-rounded w-32 h-8 overflow-hidden")
             ui.label().props("outlined readonly").bind_text(data, "file_text")
 
     select_button.on_click(lambda: uploader.run_method("removeQueuedFiles"))
