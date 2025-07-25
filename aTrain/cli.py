@@ -1,7 +1,9 @@
 import typer
 from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
-from aTrain.models import start_model_download
 from nicegui import ui
+
+import aTrain.app  # noqa: F401
+from aTrain.models import start_model_download
 
 cli = typer.Typer(help="CLI for aTrain.")
 
