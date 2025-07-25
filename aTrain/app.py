@@ -3,7 +3,7 @@ import os
 import webview
 from flask import Flask
 from wakepy import keep
-
+from aTrain.pages import transcribe
 
 from .api import api
 from .globals import EVENT_SENDER
