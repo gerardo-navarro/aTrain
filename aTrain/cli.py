@@ -26,4 +26,4 @@ def start():
 def dev():
     """Start aTrain in web mode."""
     print("Running aTrain in web mode")
-    ui.run(native=False, reload=True)
+    ui.run(native=False, reload=False)
