@@ -1,18 +1,15 @@
-import argparse
 import os
 
 import webview
-from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
 from flask import Flask
 from wakepy import keep
-from nicegui import ui
+
+
 from .api import api
 from .globals import EVENT_SENDER
-from .models import start_model_download, stop_all_downloads
+from .models import stop_all_downloads
 from .routes import routes
 from .transcription import stop_all_transcriptions
-from importlib.resources import files
-from aTrain.pages import transcribe
 
 app = Flask(__name__)
 app.register_blueprint(routes)
@@ -34,29 +31,3 @@ def teardown() -> None:
     EVENT_SENDER.end_stream()
     stop_all_transcriptions()
     stop_all_downloads()
-
-
-def cli() -> None:
-    """A function that parses the CLI arguments and runs the application accordingly."""
-    parser = argparse.ArgumentParser(
-        prog="aTrain", description="A GUI tool to transcribe audio with Whisper"
-    )
-    parser.add_argument(
-        "command",
-        choices=["init", "start", "dev"],
-        help="Command for aTrain to perform.",
-    )
-    args = parser.parse_args()
-
-    if args.command == "init":
-        for model in REQUIRED_MODELS:
-            start_model_download(model=model, models_dir=REQUIRED_MODELS_DIR)
-
-    if args.command == "start":
-        print("Running aTrain")
-        # run_app()
-        ui.run(native=True, reload=False)
-
-    if args.command == "dev":
-        print("Running aTrain in dev mode")
-        app.run()
