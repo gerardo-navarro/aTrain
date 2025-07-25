@@ -6,7 +6,7 @@ from aTrain.components.footer import footer
 
 @contextmanager
 def base_layout():
-    ui.query("body").classes("bg-slate-200")
+    ui.query("body").classes("bg-gray-50")
     header()
     yield
     footer()
