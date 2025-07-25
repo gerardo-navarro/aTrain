@@ -10,9 +10,13 @@ GITHUB_LINK = "https://github.com/JuergenFleiss/aTrain"
 def header():
     with ui.header().classes("bg-white justify-between items-center px-10"):
         with ui.row().classes("items-center"):
-            ui.button("☰")
-            ui.image(ATRAIN_LOGO).props("height='30px' width='80px' fit='contain'")
+            (
+                ui.button()
+                .props("color=white text-color=black icon=menu flat")
+                .classes("lt-md")
+            )
+            ui.image(ATRAIN_LOGO).props("height=30px width=80px fit=contain")
         with ui.row().classes("items-center"):
-            ui.image(GITHUB_LOGO).props("height='25px' width='25px' fit='contain'")
+            ui.image(GITHUB_LOGO).props("height=25px width=25px fit=contain")
             with ui.link(target=GITHUB_LINK, new_tab=True).classes("text-black"):
                 ui.label(f"Version {__version__}")
