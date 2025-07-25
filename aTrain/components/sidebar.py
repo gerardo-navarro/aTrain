@@ -14,9 +14,9 @@ def sidebar():
 def nav_button(icon: str, text: str, path: str):
     is_current_page = ui.context.client.page.path == path
     button_color = "gray-200" if is_current_page else "white"
-    button_props = "text-color=black align=left flat no-caps"
-    button_classes = "w-full rounded-lg"
     with ui.link(target=path).classes("w-full"):
-        with ui.button(color=button_color).props(button_props).classes(button_classes):
+        with ui.button(color=button_color) as nav_item:
+            nav_item.props("text-color=black align=left flat no-caps")
+            nav_item.classes("w-full rounded-lg")
             ui.label(icon).classes("text-base font-medium mr-4")
             ui.label(text).classes("text-base font-medium")
