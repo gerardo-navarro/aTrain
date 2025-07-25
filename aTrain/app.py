@@ -1,1 +1,1 @@
-from aTrain.pages import transcribe  # noqa: F401
+from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
