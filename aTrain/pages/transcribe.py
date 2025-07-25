@@ -1,8 +1,8 @@
 from nicegui import ui
-from aTrain.layouts.base_layout import base_layout
+from aTrain.layouts.card_layout import card_layout
 
 
 @ui.page("/")
 def page():
-    with base_layout():
+    with card_layout():
         ui.label("Lorem Ipsum")
