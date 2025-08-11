@@ -1,10 +1,21 @@
 from nicegui import ui
 
 
-def file_picker() -> ui.upload:
+class CustomUpload(ui.upload):
+    def remove_files(self):
+        self.run_method("removeQueuedFiles")
+
+    def pick_files(self):
+        self.run_method("pickFiles")
+
+    def upload(self):
+        self.run_method("upload")
+
+
+def file_picker() -> CustomUpload:
     data = {"file_text": "No file selected"}
 
-    uploader = ui.upload().classes("hidden")
+    uploader = CustomUpload().classes("hidden")
     uploader.on("added", lambda e: data.update(file_text=e.args[0]["__key"]))
     uploader.on("removed", lambda: data.update(file_text="No file selected"))
 
@@ -14,7 +25,7 @@ def file_picker() -> ui.upload:
             div.classes("border border-rounded w-32 h-8 overflow-hidden")
             ui.label().props("outlined readonly").bind_text(data, "file_text")
 
-    select_button.on_click(lambda: uploader.run_method("removeQueuedFiles"))
-    select_button.on_click(lambda: uploader.run_method("pickFiles"))
+    select_button.on_click(uploader.remove_files)
+    select_button.on_click(uploader.pick_files)
 
     return uploader
