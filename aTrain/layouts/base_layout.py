@@ -8,7 +8,7 @@ from aTrain.components.sidebar import sidebar
 @contextmanager
 def base_layout():
     ui.query("body").classes("bg-gray-100")
-    header()
-    sidebar()
+    drawer_handle = sidebar()
+    header(drawer_handle)
     yield
     footer()
