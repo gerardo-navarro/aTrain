@@ -42,6 +42,12 @@ def read_downloaded_models() -> list:
     return all_downloaded_models
 
 
+def read_transcription_models() -> list:
+    all_models = read_downloaded_models()
+    all_models.remove("diarize")
+    return all_models
+
+
 def read_model_metadata() -> list:
     model_metadata = load_model_config_file()
     all_models = list(model_metadata.keys())
