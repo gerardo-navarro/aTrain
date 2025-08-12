@@ -11,6 +11,9 @@ class CustomUpload(ui.upload):
     def upload(self):
         self.run_method("upload")
 
+    def reset(self):
+        self.run_method("reset")
+
 
 def file_picker() -> CustomUpload:
     data = {"file_text": "No file selected"}
