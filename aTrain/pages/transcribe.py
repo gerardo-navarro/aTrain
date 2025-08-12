@@ -19,7 +19,7 @@ def page():
             input_models = ui.select(models, label="Model", value=REQUIRED_MODELS[1])
             input_langs = ui.select(languages, label="Language", value="auto-detect")
             input_diarize = ui.switch("Speaker Detection")
-            input_speakers = ui.number("Number of Speakers", placeholder="auto")
+            input_speakers = ui.number("Number of Speakers", min=0, value=0)
         ui.separator()
         with ui.row():
             with ui.column():
