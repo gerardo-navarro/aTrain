@@ -1,11 +1,9 @@
 from aTrain_core.globals import REQUIRED_MODELS
-from nicegui import ui
+from nicegui import ui, events, app
 
 from aTrain.components.file_picker import file_picker
 from aTrain.layouts.card_layout import card_layout
 from aTrain.models import model_languages, read_transcription_models
-
-DATA = {}
 
 
 @ui.page("/")
@@ -31,8 +29,15 @@ def page():
 
     # EVENT HANDLERS
     input_speakers.bind_visibility(input_diarize, "value")
-    input_models.bind_value(DATA, "model")
+    input_models.bind_value(app.storage.client, "model")
     input_models.on_value_change(
-        lambda e: input_langs.set_options(model_languages(e.value))
+        lambda event: input_langs.set_options(model_languages(event.value))
     )
-    input_langs.bind_value(DATA, "language")
+    input_langs.bind_value(app.storage.client, "language")
+    uploader.on_upload(handle_upload)
+
+
+def handle_upload(file: events.UploadEventArguments):
+    model = app.storage.client.get("model")
+    language = app.storage.client.get("language")
+    print(file.name, model, language)
