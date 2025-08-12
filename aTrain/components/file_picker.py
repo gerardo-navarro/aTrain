@@ -16,7 +16,7 @@ def file_picker() -> CustomUpload:
     data = {"file_text": "No file selected"}
 
     uploader = CustomUpload().classes("hidden")
-    uploader.on("added", lambda e: data.update(file_text=e.args[0]["__key"]))
+    uploader.on("added", lambda: data.update(file_text="1 file selected"))
     uploader.on("removed", lambda: data.update(file_text="No file selected"))
 
     with ui.row().classes("gap-0 items-center"):
