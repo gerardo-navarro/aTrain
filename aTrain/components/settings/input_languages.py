@@ -17,5 +17,5 @@ def input_language():
 def update_language_options(model: str):
     new_options = model_languages(model)
     keys = list(new_options.keys())
-    new_value = keys[0] if input.value not in keys else ...
+    new_value = keys[0] if input.value not in keys else input.value
     input.set_options(new_options, value=new_value)
