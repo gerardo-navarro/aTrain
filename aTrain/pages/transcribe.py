@@ -1,7 +1,7 @@
 from aTrain_core.globals import REQUIRED_MODELS
 from nicegui import ui, events, app
 
-from aTrain.components.file_picker import file_picker
+from aTrain.components.settings.file_picker import file_picker
 from aTrain.layouts.card_layout import card_layout
 from aTrain.models import model_languages, read_transcription_models
 
