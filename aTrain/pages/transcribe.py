@@ -1,23 +1,20 @@
-from aTrain_core.globals import REQUIRED_MODELS
 from nicegui import ui, events, app
 
 from aTrain.components.settings.file_picker import file_picker
+from aTrain.components.settings.input_model import input_model
+from aTrain.components.settings.input_languages import input_language
 from aTrain.layouts.card_layout import card_layout
-from aTrain.models import model_languages, read_transcription_models
 
 
 @ui.page("/")
 def page():
-    # DATA
-    models = read_transcription_models()
-    languages = model_languages(REQUIRED_MODELS[1])
-
-    # LAYOUT
     with card_layout():
-        with ui.grid(rows=2, columns=3):
+        with ui.element("div").classes(
+            "w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        ):
             uploader = file_picker()
-            input_models = ui.select(models, label="Model", value=REQUIRED_MODELS[1])
-            input_langs = ui.select(languages, label="Language", value="auto-detect")
+            input_model()
+            input_language()
             input_diarize = ui.switch("Speaker Detection")
             input_speakers = ui.number("Number of Speakers", min=0, value=0)
         ui.separator()
@@ -29,11 +26,6 @@ def page():
 
     # EVENT HANDLERS
     input_speakers.bind_visibility(input_diarize, "value")
-    input_models.bind_value(app.storage.client, "model")
-    input_models.on_value_change(
-        lambda event: input_langs.set_options(model_languages(event.value))
-    )
-    input_langs.bind_value(app.storage.client, "language")
     uploader.on_upload(handle_upload)
 
 
