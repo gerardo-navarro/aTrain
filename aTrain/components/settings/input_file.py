@@ -1,4 +1,4 @@
-from nicegui import ui
+from nicegui import ui, events, app
 
 
 class CustomUpload(ui.upload):
@@ -26,6 +26,7 @@ class CustomUpload(ui.upload):
 
 def input_file() -> CustomUpload:
     uploader = CustomUpload().classes("hidden")
+    uploader.on_upload(handle_upload)
 
     with ui.column():
         ui.label("Select File").classes("h2 font-bold text-primary")
@@ -37,3 +38,9 @@ def input_file() -> CustomUpload:
     select_button.on_click(uploader.pick_files)
 
     return uploader
+
+
+def handle_upload(file: events.UploadEventArguments):
+    model = app.storage.client.get("model")
+    language = app.storage.client.get("language")
+    print(file.name, model, language)
