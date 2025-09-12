@@ -9,7 +9,8 @@ def input_language():
     with ui.column():
         ui.label("Select Language").classes("h2 font-bold text-primary")
         ui.separator()
-        input = ui.select(language_options, value="auto-detect").classes("w-full")
+        with ui.select(language_options, value="auto-detect") as input:
+            input.classes("w-full").props("outlined")
     input.bind_value(app.storage.client, "language")
 
 

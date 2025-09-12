@@ -31,7 +31,9 @@ def input_file() -> CustomUpload:
     with ui.column():
         ui.label("Select File").classes("h2 font-bold text-primary")
         ui.separator()
-        select_button = ui.button().props("outline color=grey").classes("w-full h-full")
+        with ui.button() as select_button:
+            select_button.props("outline color=grey")
+            select_button.classes("w-full h-full")
 
     select_button.bind_text(uploader, "file_text")
     select_button.bind_icon(uploader, "file_icon")

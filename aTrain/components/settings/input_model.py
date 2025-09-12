@@ -10,7 +10,8 @@ def input_model():
     with ui.column():
         ui.label("Select Model").classes("h2 font-bold text-primary")
         ui.separator()
-        input = ui.select(models, value=REQUIRED_MODELS[1]).classes("w-full")
+        with ui.select(models, value=REQUIRED_MODELS[1]).classes("w-full") as input:
+            input.classes("w-full").props("outlined")
 
     input.bind_value(app.storage.client, "model")
     input.on_value_change(lambda: update_language_options(input.value))
