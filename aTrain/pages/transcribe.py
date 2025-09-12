@@ -1,6 +1,6 @@
 from nicegui import ui, events, app
 
-from aTrain.components.settings.file_picker import file_picker
+from aTrain.components.settings.input_file import input_file
 from aTrain.components.settings.input_model import input_model
 from aTrain.components.settings.input_languages import input_language
 from aTrain.layouts.card_layout import card_layout
@@ -12,7 +12,7 @@ def page():
         with ui.element("div").classes(
             "w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         ):
-            uploader = file_picker()
+            uploader = input_file()
             input_model()
             input_language()
             input_diarize = ui.switch("Speaker Detection")
