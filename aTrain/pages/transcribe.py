@@ -20,8 +20,8 @@ def page():
             input_speaker_detection()
             input_num_speakers()
         ui.separator()
-        with ui.row():
+        with ui.row().classes("w-full justify-between items-center"):
             with ui.column():
                 ui.label("Advanced Settings")
                 ui.link("Help needed?", "/faq")
-            ui.button("upload", on_click=uploader.upload)
+            ui.button("Start", on_click=uploader.upload)
