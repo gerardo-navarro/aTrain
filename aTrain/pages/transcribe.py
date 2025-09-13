@@ -1,10 +1,10 @@
 from nicegui import ui
 
-from aTrain.components.settings.input_file import input_file
-from aTrain.components.settings.input_model import input_model
-from aTrain.components.settings.input_languages import input_language
-from aTrain.components.settings.input_speaker_detection import input_speaker_detection
-from aTrain.components.settings.input_num_speakers import input_num_speakers
+from aTrain.components.settings.file import input_file
+from aTrain.components.settings.model import input_model
+from aTrain.components.settings.language import input_language
+from aTrain.components.settings.speaker_detection import input_speaker_detection
+from aTrain.components.settings.speaker_count import input_num_speakers
 from aTrain.layouts.card_layout import card_layout
 
 
