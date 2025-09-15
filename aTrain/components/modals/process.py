@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 def modal_process():
+    global timer, dialog
     state = app.storage.client
     start_time = datetime.now()
     timer = ui.timer(interval=1, callback=lambda: update_timer(start_time))
@@ -10,7 +11,11 @@ def modal_process():
         ui.label("Process").classes("h2")
         ui.separator()
         ui.label("").bind_text(state, "timer")
-    return dialog, timer
+
+
+def close_modal_process():
+    timer.cancel()
+    dialog.delete()
 
 
 def update_timer(start_time: datetime):
