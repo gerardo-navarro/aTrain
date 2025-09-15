@@ -14,23 +14,22 @@ MultiPartParser.spool_max_size = FILE_SIZE_LIMIT
 
 async def start_transcription(file: events.UploadEventArguments):
     _, file_id, timestamp = prepare_transcription(Path(file.name))
-    settings = app.storage.client
+    state = app.storage.client
     try:
         check_inputs_transcribe(
             file=file.name,
-            model=settings.get("model"),
-            language=settings.get("language"),
+            model=state.get("model"),
+            language=state.get("language"),
             device="cpu",
         )
-        ui.notify("running")
         await run.cpu_bound(
             transcribe,
             audio_file=file.content,
             file_id=file_id,
-            model=settings.get("model"),
-            language=settings.get("language"),
-            speaker_detection=settings.get("speaker_detection"),
-            num_speakers=settings.get("num_speakers") or "auto-detect",
+            model=state.get("model"),
+            language=state.get("language"),
+            speaker_detection=state.get("speaker_detection"),
+            num_speakers=state.get("num_speakers") or "auto-detect",
             device="cpu",  # fixed for testing
             compute_type="int8",  # fixed for testing
             timestamp=timestamp,
