@@ -1,13 +1,13 @@
 from pathlib import Path
 
+from aTrain_core.check_inputs import check_inputs_transcribe
 from aTrain_core.globals import REQUIRED_MODELS_DIR
 from aTrain_core.transcribe import prepare_transcription, transcribe
-from aTrain_core.check_inputs import check_inputs_transcribe
 from nicegui import app, events, run, ui
 from nicegui.run import SubprocessException
+from starlette.formparsers import MultiPartParser
 
 from aTrain.globals import EVENT_SENDER, FILE_SIZE_LIMIT
-from starlette.formparsers import MultiPartParser
 
 MultiPartParser.spool_max_size = FILE_SIZE_LIMIT
 
