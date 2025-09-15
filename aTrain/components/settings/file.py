@@ -1,4 +1,6 @@
-from nicegui import ui, events, app
+from nicegui import ui
+
+from aTrain.transcription import handle_upload
 
 
 class CustomUpload(ui.upload):
@@ -40,9 +42,3 @@ def input_file() -> CustomUpload:
     select_button.on_click(uploader.pick_files)
 
     return uploader
-
-
-def handle_upload(file: events.UploadEventArguments):
-    model = app.storage.client.get("model")
-    language = app.storage.client.get("language")
-    print(file.name, model, language)
