@@ -8,9 +8,9 @@ from nicegui import app, events, run
 from nicegui.run import SubprocessException
 from starlette.formparsers import MultiPartParser
 
+from aTrain.components.modals.error import modal_error
 from aTrain.components.modals.finished import modal_finished
 from aTrain.components.modals.process import modal_process
-from aTrain.components.modals.error import modal_error
 from aTrain.globals import EVENT_SENDER, FILE_SIZE_LIMIT
 
 MultiPartParser.spool_max_size = FILE_SIZE_LIMIT
