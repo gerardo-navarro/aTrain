@@ -1,7 +1,7 @@
 from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
 from nicegui import ui
-from typer import Typer
-
+from typer import Typer, Option
+from typing_extensions import Annotated
 import aTrain.app  # noqa: F401
 from aTrain.models import start_model_download
 
@@ -16,14 +16,10 @@ def init():
 
 
 @cli.command()
-def start():
-    """Start aTrain in native mode."""
-    print("Running aTrain in native mode")
-    ui.run(native=True, reload=False)
-
-
-@cli.command()
-def dev():
-    """Start aTrain in web mode."""
-    print("Running aTrain in web mode")
-    ui.run(native=False, reload=False)
+def start(
+    native: Annotated[bool, Option(help="Run in a native window")] = True,
+    reload: Annotated[bool, Option(help="Reload on code change")] = False,
+):
+    """Start aTrain."""
+    print("Running aTrain")
+    ui.run(native=native, reload=reload)
