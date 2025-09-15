@@ -1,18 +1,23 @@
+import traceback
 from pathlib import Path
 
 from aTrain_core.check_inputs import check_inputs_transcribe
 from aTrain_core.globals import REQUIRED_MODELS_DIR
 from aTrain_core.transcribe import prepare_transcription, transcribe
-from nicegui import app, events, run, ui
+from nicegui import app, events, run
 from nicegui.run import SubprocessException
 from starlette.formparsers import MultiPartParser
 
+from aTrain.components.modals.finished import modal_finished
+from aTrain.components.modals.process import modal_process
+from aTrain.components.modals.error import modal_error
 from aTrain.globals import EVENT_SENDER, FILE_SIZE_LIMIT
 
 MultiPartParser.spool_max_size = FILE_SIZE_LIMIT
 
 
 async def start_transcription(file: events.UploadEventArguments):
+    proces_modal = modal_process()
     _, file_id, timestamp = prepare_transcription(Path(file.name))
     state = app.storage.client
     try:
@@ -38,6 +43,9 @@ async def start_transcription(file: events.UploadEventArguments):
             GUI=EVENT_SENDER,
             required_models_dir=REQUIRED_MODELS_DIR,
         )
-        ui.notify("Success")
+        proces_modal.delete()
+        modal_finished()
+
     except (SubprocessException, ValueError) as e:
-        ui.notify(e)
+        proces_modal.delete()
+        modal_error(error=str(e), traceback=traceback.format_exc())
