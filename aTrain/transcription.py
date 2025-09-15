@@ -2,6 +2,7 @@ from pathlib import Path
 
 from aTrain_core.globals import REQUIRED_MODELS_DIR
 from aTrain_core.transcribe import prepare_transcription, transcribe
+from aTrain_core.check_inputs import check_inputs_transcribe
 from nicegui import app, events, run, ui
 from nicegui.run import SubprocessException
 
@@ -15,6 +16,12 @@ async def start_transcription(file: events.UploadEventArguments):
     _, file_id, timestamp = prepare_transcription(Path(file.name))
     settings = app.storage.client
     try:
+        check_inputs_transcribe(
+            file=file.name,
+            model=settings.get("model"),
+            language=settings.get("language"),
+            device="cpu",
+        )
         ui.notify("running")
         await run.cpu_bound(
             transcribe,
@@ -33,5 +40,5 @@ async def start_transcription(file: events.UploadEventArguments):
             required_models_dir=REQUIRED_MODELS_DIR,
         )
         ui.notify("Success")
-    except SubprocessException as e:
+    except (SubprocessException, ValueError) as e:
         ui.notify(e)
