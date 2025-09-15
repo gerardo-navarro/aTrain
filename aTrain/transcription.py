@@ -17,7 +17,7 @@ MultiPartParser.spool_max_size = FILE_SIZE_LIMIT
 
 
 async def start_transcription(file: events.UploadEventArguments):
-    process_modal = modal_process()
+    process_modal, timer = modal_process()
     _, file_id, timestamp = prepare_transcription(Path(file.name))
     state = app.storage.client
     try:
@@ -44,8 +44,10 @@ async def start_transcription(file: events.UploadEventArguments):
             required_models_dir=REQUIRED_MODELS_DIR,
         )
         process_modal.delete()
+        timer.cancel()
         modal_finished()
 
     except (SubprocessException, ValueError) as e:
         process_modal.delete()
+        timer.cancel()
         modal_error(error=str(e), traceback=traceback.format_exc())
