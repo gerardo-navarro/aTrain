@@ -22,4 +22,4 @@ def start(
 ):
     """Start aTrain."""
     print("Running aTrain")
-    ui.run(native=native, reload=reload)
+    ui.run(native=native, reload=reload, window_size=(1280, 720))
