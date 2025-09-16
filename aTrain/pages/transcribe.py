@@ -5,6 +5,7 @@ from aTrain.components.settings.language import input_language
 from aTrain.components.settings.model import input_model
 from aTrain.components.settings.speaker_count import input_num_speakers
 from aTrain.components.settings.speaker_detection import input_speaker_detection
+from aTrain.components.settings.advanced import advanced_settings
 from aTrain.layouts.card_layout import card_layout
 from aTrain.transcription import start_transcription
 
@@ -22,9 +23,9 @@ def page():
             input_num_speakers()
         ui.separator()
         with ui.row().classes("w-full justify-between items-center"):
-            with ui.column():
-                ui.label("Advanced Settings")
-                ui.link("Help needed?", "/faq")
+            settings_btn = ui.button("Advanced Settings", color="grey", icon="settings")
+            settings_btn.props("size=sm outline")
             ui.button("Start", on_click=file.upload)
 
     file.on_upload(start_transcription)
+    settings_btn.on_click(advanced_settings)
