@@ -9,7 +9,9 @@ def input_num_speakers():
             ui.label("Number of Speakers").classes("font-bold text-dark text-md")
             ui.icon("help_outline", size="sm", color="grey").tooltip(TOOLTIP)
         ui.separator()
-        input = ui.number(min=0, value=0).classes("w-full").props("outlined")
+        input = ui.number(min=0, value=0)
+        input.classes("w-full")
+        input.props("filled bg-color=bg-gray-100 color=dark")
 
     input.bind_value(app.storage.client, "num_speakers")
     column.bind_visibility(app.storage.client, "speaker_detection")

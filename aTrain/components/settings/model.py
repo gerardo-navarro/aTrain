@@ -11,7 +11,8 @@ def input_model():
         ui.label("Select Model").classes("font-bold text-dark text-md")
         ui.separator()
         with ui.select(models, value=REQUIRED_MODELS[1]).classes("w-full") as input:
-            input.classes("w-full").props("outlined")
+            input.classes("w-full")
+            input.props("filled bg-color=bg-gray-100 color=dark")
 
     input.bind_value(app.storage.client, "model")
     input.on_value_change(lambda: update_language_options(input.value))
