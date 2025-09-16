@@ -1,10 +1,12 @@
+from importlib.resources import files
+
 from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
 from nicegui import ui
-from typer import Typer, Option
+from typer import Option, Typer
 from typing_extensions import Annotated
-from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
+
 from aTrain.models import start_model_download
-from importlib.resources import files
+from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
 
 cli = Typer(help="CLI for aTrain.")
 
