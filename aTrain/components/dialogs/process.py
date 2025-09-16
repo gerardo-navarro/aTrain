@@ -19,7 +19,7 @@ def dialog_process(progress: DictProxy):
         progress_bar = ui.linear_progress(show_value=False).props("animation-speed=500")
         progress_bar.bind_value(state, "progress")
         ui.separator()
-        ui.button("stop").on_click(lambda: (stop_transcription(), ui.navigate.reload()))
+        ui.button("stop").on_click(stop_transcription)
 
 
 def update_progress(progress: DictProxy, start_time: datetime):
