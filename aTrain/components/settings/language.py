@@ -11,7 +11,7 @@ def input_language():
         ui.separator()
         with ui.select(language_options, value="auto-detect") as input:
             input.classes("w-full")
-            input.props("filled bg-color=bg-gray-100 color=dark")
+            input.props("filled bg-color=gray-100 color=dark")
     input.bind_value(app.storage.client, "language")
 
 
