@@ -1,7 +1,5 @@
 from nicegui import ui
 
-from aTrain.transcription import start_transcription
-
 
 class CustomUpload(ui.upload):
     def __init__(self, *args, **kwargs):
@@ -28,7 +26,6 @@ class CustomUpload(ui.upload):
 
 def input_file() -> CustomUpload:
     uploader = CustomUpload().classes("hidden")
-    uploader.on_upload(start_transcription)
 
     with ui.column():
         ui.label("Select File").classes("h2 font-bold text-primary")
