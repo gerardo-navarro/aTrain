@@ -23,9 +23,10 @@ def page():
             input_num_speakers()
         ui.separator().classes("mt-4")
         with ui.row().classes("w-full justify-between items-center"):
-            settings_btn = ui.button("Advanced Settings", color="grey", icon="settings")
-            settings_btn.props("size=sm outline")
-            ui.button("Start", on_click=file.upload)
+            settings_btn = ui.button("Advanced Settings", color="gray-100")
+            settings_btn.props("size=sm unelevated no-caps icon=settings")
+            start_btn = ui.button("Start", on_click=file.upload, color="dark")
+            start_btn.props("no-caps unelevated")
 
     file.on_upload(start_transcription)
     settings_btn.on_click(advanced_settings)
