@@ -8,7 +8,7 @@ def input_model():
     models = read_transcription_models()
 
     with ui.column():
-        ui.label("Select Model").classes("h2 font-bold text-primary")
+        ui.label("Select Model").classes("font-bold text-dark text-md")
         ui.separator()
         with ui.select(models, value=REQUIRED_MODELS[1]).classes("w-full") as input:
             input.classes("w-full").props("outlined")

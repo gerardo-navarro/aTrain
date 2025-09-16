@@ -13,7 +13,7 @@ def page():
 
     with card_layout():
         with ui.row().classes("justify-between w-full items-center"):
-            ui.label("Archive").classes("text-h6 text-primary")
+            ui.label("Archive").classes("text-lg text-dark font-bold")
             with ui.row():
                 btn_show_all = ui.button("Show All", color="dark")
                 btn_show_all.props("size=0.8rem unelevated no-caps")
