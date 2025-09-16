@@ -21,7 +21,7 @@ def page():
             input_language()
             input_speaker_detection()
             input_num_speakers()
-        ui.separator()
+        ui.separator().classes("mt-4")
         with ui.row().classes("w-full justify-between items-center"):
             settings_btn = ui.button("Advanced Settings", color="grey", icon="settings")
             settings_btn.props("size=sm outline")
