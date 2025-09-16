@@ -1,21 +1,16 @@
 import os
 import sys
-import traceback
 import urllib.error
 import urllib.request
+from multiprocessing.managers import DictProxy
 from threading import Thread
 
 from aTrain_core.check_inputs import load_languages
 from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
-from aTrain_core.GUI_integration import EventSender
 from aTrain_core.load_resources import get_model, load_model_config_file, remove_model
 from showinfm import show_in_file_manager
 
-from .globals import (
-    EVENT_SENDER,
-    MODELS_DIR,
-    RUNNING_DOWNLOADS,
-)
+from .globals import MODELS_DIR, RUNNING_DOWNLOADS
 
 
 def read_downloaded_models() -> list:
@@ -87,14 +82,16 @@ def open_model_dir(model: str, models_dir=MODELS_DIR) -> None:
         show_in_file_manager(directory_name)
 
 
-def start_model_download(model: str, models_dir=MODELS_DIR) -> None:
+def start_model_download(
+    model: str, models_dir=MODELS_DIR, progress: DictProxy | dict = {}
+) -> None:
     """A function that starts the download of a model in a separate process."""
     if model in REQUIRED_MODELS:
         models_dir = REQUIRED_MODELS_DIR
 
     model_download = StoppableThread(
         target=try_to_download_model,
-        kwargs={"model": model, "event_sender": EVENT_SENDER, "models_dir": models_dir},
+        kwargs={"model": model, "progress": progress, "models_dir": models_dir},
         daemon=True,
     )
     model_download.start()
@@ -103,20 +100,16 @@ def start_model_download(model: str, models_dir=MODELS_DIR) -> None:
     RUNNING_DOWNLOADS.remove((model_download, model))
 
 
-def try_to_download_model(
-    model: str, event_sender: EventSender, models_dir=None
-) -> None:
+def try_to_download_model(model: str, progress: DictProxy, models_dir=None) -> None:
     """A function that tries to download the specified model and sends any occurring errors to the frontend."""
 
     if models_dir is None:
         models_dir = MODELS_DIR
     try:
         check_internet()
-        get_model(model, event_sender, models_dir, REQUIRED_MODELS_DIR)
-        event_sender.finished_info()
-    except Exception as error:
-        traceback_str = traceback.format_exc()
-        event_sender.error_info(str(error), traceback_str)
+        get_model(model, progress, models_dir, REQUIRED_MODELS_DIR)
+
+    except Exception:
         remove_model(model)
 
 
@@ -138,7 +131,6 @@ def stop_all_downloads() -> None:
         download.join()
         remove_model(model)
     RUNNING_DOWNLOADS.clear()
-    EVENT_SENDER.finished_info()
 
 
 class StoppableThread(Thread):
