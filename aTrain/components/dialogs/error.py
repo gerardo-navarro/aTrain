@@ -9,4 +9,5 @@ def dialog_error(error: str, traceback: str):
         ui.label(error)
         ui.label("Traceback")
         ui.label(traceback)
-        ui.button("Exit").on_click(dialog.delete)
+        btn_exit = ui.button("Exit", color="dark").props("unelevated no-caps")
+        btn_exit.on_click(dialog.delete)

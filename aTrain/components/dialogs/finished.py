@@ -8,4 +8,5 @@ def dialog_finished():
     with ui.dialog(value=True).props("persistent"), ui.card():
         ui.label("Finished")
         ui.label("").bind_text_from(state, "timer", lambda x: f"We transcribed in {x}")
-        ui.button("Exit").on_click(ui.navigate.reload)
+        btn_exit = ui.button("Exit", color="dark").props("unelevated no-caps")
+        btn_exit.on_click(ui.navigate.reload)
