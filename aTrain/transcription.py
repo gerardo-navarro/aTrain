@@ -1,16 +1,19 @@
 import traceback
-from pathlib import Path
 from concurrent.futures.process import BrokenProcessPool
+from multiprocessing import Manager
+from pathlib import Path
+
 from aTrain_core.check_inputs import check_inputs_transcribe
 from aTrain_core.globals import REQUIRED_MODELS_DIR
 from aTrain_core.transcribe import prepare_transcription, transcribe
 from nicegui import app, events, run
-from nicegui.run import SubprocessException, setup as setup_process_pool
+from nicegui.run import SubprocessException
+from nicegui.run import setup as setup_process_pool
 from starlette.formparsers import MultiPartParser
-from multiprocessing import Manager
+
 from aTrain.components.dialogs.error import dialog_error
 from aTrain.components.dialogs.finished import dialog_finished
-from aTrain.components.dialogs.process import dialog_process, close_dialog_process
+from aTrain.components.dialogs.process import close_dialog_process, dialog_process
 from aTrain.globals import FILE_SIZE_LIMIT
 
 MultiPartParser.spool_max_size = FILE_SIZE_LIMIT
