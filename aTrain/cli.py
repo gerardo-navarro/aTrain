@@ -4,6 +4,7 @@ from typer import Typer, Option
 from typing_extensions import Annotated
 from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
 from aTrain.models import start_model_download
+from importlib.resources import files
 
 cli = Typer(help="CLI for aTrain.")
 
@@ -22,4 +23,10 @@ def start(
 ):
     """Start aTrain."""
     print("Running aTrain")
-    ui.run(native=native, reload=reload, window_size=(1280, 720))
+    ui.run(
+        native=native,
+        reload=reload,
+        title="aTrain",
+        favicon=files("aTrain") / "static" / "favicon.ico",
+        window_size=(1280, 720) if native else None,
+    )
