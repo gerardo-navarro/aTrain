@@ -10,7 +10,9 @@ from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
 from aTrain_core.load_resources import get_model, load_model_config_file, remove_model
 from showinfm import show_in_file_manager
 
-from .globals import MODELS_DIR, RUNNING_DOWNLOADS
+from aTrain_core.globals import MODELS_DIR
+
+RUNNING_DOWNLOADS = []
 
 
 def read_downloaded_models() -> list:
