@@ -24,7 +24,7 @@ def page():
         ui.separator().classes("mt-4")
         with ui.row().classes("w-full justify-between items-center"):
             settings_btn = ui.button("Advanced Settings", color="gray-100")
-            settings_btn.props("size=sm unelevated no-caps icon=settings")
+            settings_btn.props("size=0.8rem unelevated no-caps icon=settings")
             start_btn = ui.button("Start", on_click=file.upload, color="dark")
             start_btn.props("no-caps unelevated")
 
