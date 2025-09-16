@@ -7,7 +7,7 @@ from aTrain.components.settings.language import update_language_options
 def input_model():
     models = read_transcription_models()
 
-    with ui.column():
+    with ui.column().classes("gap-2"):
         ui.label("Select Model").classes("font-bold text-dark text-md")
         ui.separator()
         with ui.select(models, value=REQUIRED_MODELS[1]).classes("w-full") as input:

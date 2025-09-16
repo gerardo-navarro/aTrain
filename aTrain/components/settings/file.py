@@ -27,7 +27,7 @@ class CustomUpload(ui.upload):
 def input_file() -> CustomUpload:
     uploader = CustomUpload().classes("hidden")
 
-    with ui.column():
+    with ui.column().classes("gap-2"):
         ui.label("Select File").classes("font-bold text-dark text-md")
         ui.separator()
         with ui.button() as select_button:

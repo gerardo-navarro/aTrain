@@ -2,7 +2,7 @@ from nicegui import ui, app
 
 
 def input_speaker_detection():
-    with ui.column():
+    with ui.column().classes("gap-2"):
         ui.label("Speaker Detection").classes("font-bold text-dark text-md")
         ui.separator()
         input = ui.switch("Speaker Detection")

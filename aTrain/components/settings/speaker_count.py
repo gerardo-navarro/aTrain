@@ -4,7 +4,7 @@ TOOLTIP = "If you specify '0' the app will automatically detect the number of sp
 
 
 def input_num_speakers():
-    with ui.column() as column:
+    with ui.column().classes("gap-2") as column:
         with ui.row(align_items="center").classes("w-full justify-between"):
             ui.label("Number of Speakers").classes("font-bold text-dark text-md")
             ui.icon("help_outline", size="sm", color="grey").tooltip(TOOLTIP)

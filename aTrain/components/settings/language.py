@@ -6,7 +6,7 @@ from aTrain_core.globals import REQUIRED_MODELS
 def input_language():
     global input
     language_options = model_languages(REQUIRED_MODELS[1])
-    with ui.column():
+    with ui.column().classes("gap-2"):
         ui.label("Select Language").classes("font-bold text-dark text-md")
         ui.separator()
         with ui.select(language_options, value="auto-detect") as input:
