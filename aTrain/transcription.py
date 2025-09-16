@@ -30,7 +30,7 @@ async def start_transcription(file: events.UploadEventArguments):
                 file=file.name,
                 model=state.get("model"),
                 language=state.get("language"),
-                device="cpu",
+                device="cpu",  # fixed for testing
             )
             await run.cpu_bound(
                 transcribe,
