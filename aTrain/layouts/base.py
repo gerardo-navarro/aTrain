@@ -10,5 +10,6 @@ def base_layout():
     ui.query("body").classes("bg-gray-100")
     drawer_handle = sidebar()
     header(drawer_handle)
-    yield
+    with ui.card().classes("w-full h-full bg-white rounded-lg p-8").props("flat"):
+        yield
     footer()

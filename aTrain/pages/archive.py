@@ -1,5 +1,5 @@
 from nicegui import ui
-from aTrain.layouts.card_layout import card_layout
+from aTrain.layouts.base import base_layout
 from aTrain.archive import (
     read_archive,
     open_file_directory as show,
@@ -11,7 +11,7 @@ from aTrain.archive import (
 def page():
     transcriptions = read_archive()
 
-    with card_layout():
+    with base_layout():
         with ui.row().classes("justify-between w-full items-center"):
             ui.label("Archive").classes("text-lg text-dark font-bold")
             with ui.row():
