@@ -1,5 +1,6 @@
 from nicegui import ui, app
 from datetime import datetime
+from nicegui.run import tear_down as stop_transcription
 
 
 def dialog_process():
@@ -11,6 +12,7 @@ def dialog_process():
         ui.label("Process").classes("h2")
         ui.separator()
         ui.label("").bind_text(state, "timer")
+        ui.button("stop").on_click(stop_transcription)
 
 
 def close_dialog_process():
