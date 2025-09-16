@@ -1,7 +1,8 @@
-from nicegui import ui, app
 from datetime import datetime
-from nicegui.run import tear_down as stop_transcription
 from multiprocessing.managers import DictProxy
+
+from nicegui import app, ui
+from nicegui.run import tear_down as stop_transcription
 
 
 def dialog_process(progress: DictProxy):
@@ -20,11 +21,6 @@ def dialog_process(progress: DictProxy):
         ui.button("stop").on_click(stop_transcription)
 
 
-def close_dialog_process():
-    timer.cancel()
-    dialog.delete()
-
-
 def update_progress(progress: DictProxy, start_time: datetime):
     state = app.storage.client
     state["progress"] = progress["current"] / progress["total"]
@@ -39,3 +35,8 @@ def update_timer(start_time: datetime):
     hours, remainder = divmod(total_seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
     state["timer"] = f"{hours:02}:{minutes:02}:{seconds:02}"
+
+
+def close_dialog_process():
+    timer.cancel()
+    dialog.delete()
