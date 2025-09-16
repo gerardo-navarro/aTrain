@@ -41,13 +41,9 @@ def page():
                         with ui.row():
                             btn_open = ui.button("open", color="dark")
                             btn_open.props("no-caps size=0.7rem unelevated")
-                            btn_open.on_click(lambda: show(transcription["file_id"]))
-
                             btn_delete = ui.button("delete", color="gray-100")
                             btn_delete.props("no-caps size=0.7rem unelevated")
-                            btn_delete.on_click(
-                                lambda: (
-                                    delete(transcription["file_id"]),
-                                    ui.navigate.reload(),
-                                )
-                            )
+                btn_open.on_click(lambda t=transcription: show(t["file_id"]))
+                btn_delete.on_click(
+                    lambda t=transcription: (delete(t["file_id"]), ui.navigate.reload())
+                )
