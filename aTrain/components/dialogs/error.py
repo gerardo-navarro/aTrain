@@ -1,9 +1,9 @@
 from nicegui import ui
-from aTrain.components.modals.process import close_modal_process
+from aTrain.components.dialogs.process import close_dialog_process
 
 
-def modal_error(error: str, traceback: str):
-    close_modal_process()
+def dialog_error(error: str, traceback: str):
+    close_dialog_process()
     with ui.dialog(value=True).props("persistent") as dialog, ui.card():
         ui.label("Error")
         ui.label(error)

@@ -8,16 +8,16 @@ from nicegui import app, events, run
 from nicegui.run import SubprocessException
 from starlette.formparsers import MultiPartParser
 
-from aTrain.components.modals.error import modal_error
-from aTrain.components.modals.finished import modal_finished
-from aTrain.components.modals.process import modal_process
+from aTrain.components.dialogs.error import dialog_error
+from aTrain.components.dialogs.finished import dialog_finished
+from aTrain.components.dialogs.process import dialog_process
 from aTrain.globals import EVENT_SENDER, FILE_SIZE_LIMIT
 
 MultiPartParser.spool_max_size = FILE_SIZE_LIMIT
 
 
 async def start_transcription(file: events.UploadEventArguments):
-    modal_process()
+    dialog_process()
     _, file_id, timestamp = prepare_transcription(Path(file.name))
     state = app.storage.client
     try:
@@ -43,7 +43,7 @@ async def start_transcription(file: events.UploadEventArguments):
             GUI=EVENT_SENDER,
             required_models_dir=REQUIRED_MODELS_DIR,
         )
-        modal_finished()
+        dialog_finished()
 
     except (SubprocessException, ValueError) as e:
-        modal_error(error=str(e), traceback=traceback.format_exc())
+        dialog_error(error=str(e), traceback=traceback.format_exc())

@@ -2,7 +2,7 @@ from nicegui import ui, app
 from datetime import datetime
 
 
-def modal_process():
+def dialog_process():
     global timer, dialog
     state = app.storage.client
     start_time = datetime.now()
@@ -13,7 +13,7 @@ def modal_process():
         ui.label("").bind_text(state, "timer")
 
 
-def close_modal_process():
+def close_dialog_process():
     timer.cancel()
     dialog.delete()
 
