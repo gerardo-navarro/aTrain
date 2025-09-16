@@ -31,23 +31,23 @@ def page():
                     ui.label("Date")
                     ui.label("Input")
                     ui.label("Actions")
-            for i, transcript in enumerate(transcriptions):
+            for i, transcription in enumerate(transcriptions):
                 with ui.item().classes("hover:bg-gray-100"):
                     with ui.grid(columns="minmax(0, 60px) 1fr 1fr 1fr") as grid:
                         grid.classes("w-full items-center")
                         ui.label(i + 1).classes("text-medium")
-                        ui.label(transcript["timestamp"]).classes("font-light")
-                        ui.label(transcript["filename"]).classes("font-light")
+                        ui.label(transcription["timestamp"]).classes("font-light")
+                        ui.label(transcription["filename"]).classes("font-light")
                         with ui.row():
                             btn_open = ui.button("open", color="dark")
                             btn_open.props("no-caps size=0.7rem unelevated")
-                            btn_open.on_click(lambda: show(transcript["file_id"]))
+                            btn_open.on_click(lambda: show(transcription["file_id"]))
 
                             btn_delete = ui.button("delete", color="gray-100")
                             btn_delete.props("no-caps size=0.7rem unelevated")
                             btn_delete.on_click(
                                 lambda: (
-                                    delete(transcript["file_id"]),
+                                    delete(transcription["file_id"]),
                                     ui.navigate.reload(),
                                 )
                             )
