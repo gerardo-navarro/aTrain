@@ -2,7 +2,7 @@ from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
 from nicegui import ui
 from typer import Typer, Option
 from typing_extensions import Annotated
-import aTrain.app  # noqa: F401
+from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
 from aTrain.models import start_model_download
 
 cli = Typer(help="CLI for aTrain.")
