@@ -8,6 +8,9 @@ from typing_extensions import Annotated
 from aTrain.utils.models import start_model_download
 from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
 
+__version__ = "1.3.1"
+
+
 cli = Typer(help="CLI for aTrain.")
 
 
