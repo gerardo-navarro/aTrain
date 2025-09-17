@@ -30,7 +30,7 @@ async def start_transcription(file: events.UploadEventArguments):
                 file=file.name,
                 model=state.get("model"),
                 language=state.get("language"),
-                device="cpu",  # fixed for testing
+                device="cuda" if state.get("GPU") else "cpu",
             )
             await run.cpu_bound(
                 transcribe,
@@ -40,11 +40,11 @@ async def start_transcription(file: events.UploadEventArguments):
                 language=state.get("language"),
                 speaker_detection=state.get("speaker_detection"),
                 num_speakers=state.get("num_speakers") or "auto-detect",
-                device="cpu",  # fixed for testing
-                compute_type="int8",  # fixed for testing
+                device="cuda" if state.get("GPU") else "cpu",
+                compute_type=state.get("compute_type"),
                 timestamp=timestamp,
                 original_audio_filename=file.name,
-                initial_prompt=None,  # fixed for testing
+                initial_prompt=state.get("initial_prompt") or None,
                 progress=progress,
                 required_models_dir=REQUIRED_MODELS_DIR,
             )
