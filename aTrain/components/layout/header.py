@@ -1,6 +1,6 @@
 from nicegui import ui
 from importlib.resources import files
-from aTrain.app import __version__
+from aTrain.version import __version__
 
 ATRAIN_LOGO = files("aTrain") / "static" / "images" / "logo.svg"
 GITHUB_LOGO = files("aTrain") / "static" / "images" / "github.svg"
