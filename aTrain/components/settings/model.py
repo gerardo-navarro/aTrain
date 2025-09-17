@@ -8,7 +8,14 @@ from aTrain.utils.models import read_transcription_models
 def input_model():
     models = read_transcription_models()
     default_model = REQUIRED_MODELS[1]
-    active_model = default_model if default_model in models else None
+
+    if default_model in models:
+        active_model = default_model
+    elif models:
+        active_model = models[0]
+    else:
+        active_model = None
+
     with ui.column().classes("gap-2"):
         ui.label("Select Model").classes("font-bold text-dark text-md")
         ui.separator()

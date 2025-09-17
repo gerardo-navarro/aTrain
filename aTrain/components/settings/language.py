@@ -1,22 +1,20 @@
-from aTrain_core.globals import REQUIRED_MODELS
 from nicegui import app, ui
 
-from aTrain.utils.models import model_languages, read_transcription_models
+from aTrain.utils.models import model_languages
 
 
 def input_language():
     global input
-    models = read_transcription_models()
-    default_model = REQUIRED_MODELS[1]
-    language_options = model_languages(default_model) if default_model in models else []
-    default_language = "auto-detect" if language_options else None
+    state = app.storage.client
+    language_options = model_languages(state["model"]) if state["model"] else []
+    default_language = list(language_options.keys())[0] if language_options else None
     with ui.column().classes("gap-2"):
         ui.label("Select Language").classes("font-bold text-dark text-md")
         ui.separator()
         with ui.select(language_options, value=default_language) as input:
             input.classes("w-full")
             input.props("filled bg-color=gray-100 color=dark")
-    input.bind_value(app.storage.client, "language")
+    input.bind_value(state, "language")
 
 
 def update_language_options(model: str):
