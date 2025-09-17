@@ -48,9 +48,11 @@ async def start_transcription(file: events.UploadEventArguments):
                 progress=progress,
                 required_models_dir=REQUIRED_MODELS_DIR,
             )
+            close_dialog_process()
             dialog_finished()
 
         except (SubprocessException, ValueError) as e:
+            close_dialog_process()
             dialog_error(error=str(e), traceback=traceback.format_exc())
 
         except BrokenProcessPool:

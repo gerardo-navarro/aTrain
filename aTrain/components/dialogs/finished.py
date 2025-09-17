@@ -1,9 +1,7 @@
 from nicegui import ui, app
-from aTrain.components.dialogs.process import close_dialog_process
 
 
 def dialog_finished():
-    close_dialog_process()
     state = app.storage.client
     with ui.dialog(value=True).props("persistent"), ui.card():
         ui.label("Finished")
