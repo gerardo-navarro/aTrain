@@ -2,17 +2,17 @@ import os
 import traceback
 import urllib.error
 import urllib.request
+from concurrent.futures.process import BrokenProcessPool
 from multiprocessing import Manager
-from nicegui import ui
+
 from aTrain_core.check_inputs import load_languages
 from aTrain_core.globals import MODELS_DIR, REQUIRED_MODELS_DIR
 from aTrain_core.load_resources import get_model, load_model_config_file, remove_model
-from nicegui import run
+from nicegui import run, ui
 from nicegui.run import setup as setup_process_pool
-from concurrent.futures.process import BrokenProcessPool
 
+from aTrain.components.dialogs.download import close_dialog_download, dialog_download
 from aTrain.components.dialogs.error import dialog_error
-from aTrain.components.dialogs.download import dialog_download, close_dialog_download
 
 
 def read_downloaded_models() -> list:
