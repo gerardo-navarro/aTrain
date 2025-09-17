@@ -3,8 +3,8 @@ from aTrain_core.check_inputs import ComputeType
 from torch import cuda
 
 
-def advanced_settings():
-    with ui.dialog(value=True) as dialog, ui.card() as card:
+def advanced_settings(open: bool):
+    with ui.dialog(value=open) as dialog, ui.card() as card:
         dialog.props("persistent position=right full-height").classes("[&>*]:p-0")
         card.props("square").classes("w-72 xl:w-96 p-6 gap-6")
         ui.label("Advanced Settings").classes("text-lg text-dark font-bold")

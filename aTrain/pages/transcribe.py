@@ -27,6 +27,7 @@ def page():
             settings_btn.props("size=0.8rem unelevated no-caps icon=settings")
             start_btn = ui.button("Start", on_click=file.upload, color="dark")
             start_btn.props("no-caps unelevated")
+            advanced_settings(open=False)
 
     file.on_upload(start_transcription)
-    settings_btn.on_click(advanced_settings)
+    settings_btn.on_click(lambda: advanced_settings(open=True))
