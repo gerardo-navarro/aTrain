@@ -93,6 +93,7 @@ async def download_model(model: str, models_dir=MODELS_DIR):
             ui.navigate.reload()
 
         except BrokenProcessPool:
+            remove_model(model)
             setup_process_pool()
             close_dialog_download()
             ui.navigate.reload()
