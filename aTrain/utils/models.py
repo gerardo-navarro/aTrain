@@ -1,18 +1,18 @@
 import os
-import sys
+import traceback
 import urllib.error
 import urllib.request
-from multiprocessing.managers import DictProxy
-from threading import Thread
-
+from multiprocessing import Manager
+from nicegui import ui
 from aTrain_core.check_inputs import load_languages
-from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
+from aTrain_core.globals import MODELS_DIR, REQUIRED_MODELS_DIR
 from aTrain_core.load_resources import get_model, load_model_config_file, remove_model
-from showinfm import show_in_file_manager
+from nicegui import run
+from nicegui.run import setup as setup_process_pool
+from concurrent.futures.process import BrokenProcessPool
 
-from aTrain_core.globals import MODELS_DIR
-
-RUNNING_DOWNLOADS = []
+from aTrain.components.dialogs.error import dialog_error
+from aTrain.components.dialogs.download import dialog_download, close_dialog_download
 
 
 def read_downloaded_models() -> list:
@@ -76,43 +76,31 @@ def model_languages(model: str) -> dict:
     return languages_dict
 
 
-def open_model_dir(model: str, models_dir=MODELS_DIR) -> None:
-    """A function that opens the directory where a given model is stored."""
-    model = "" if model == "all" else model
-    directory_name = os.path.join(models_dir, model)
-    if os.path.exists(directory_name):
-        show_in_file_manager(directory_name)
+async def download_model(model: str, models_dir=MODELS_DIR):
+    with Manager() as manager:
+        progress = manager.dict({"current": 0, "total": 999999})
+        dialog_download(progress)
+        try:
+            check_internet()
+            await run.cpu_bound(
+                get_model,
+                model=model,
+                progress=progress,
+                models_dir=models_dir,
+                required_models_dir=REQUIRED_MODELS_DIR,
+            )
+            close_dialog_download()
+            ui.navigate.reload()
 
+        except BrokenProcessPool:
+            setup_process_pool()
+            close_dialog_download()
+            ui.navigate.reload()
 
-def start_model_download(
-    model: str, models_dir=MODELS_DIR, progress: DictProxy | dict = {}
-) -> None:
-    """A function that starts the download of a model in a separate process."""
-    if model in REQUIRED_MODELS:
-        models_dir = REQUIRED_MODELS_DIR
-
-    model_download = StoppableThread(
-        target=try_to_download_model,
-        kwargs={"model": model, "progress": progress, "models_dir": models_dir},
-        daemon=True,
-    )
-    model_download.start()
-    RUNNING_DOWNLOADS.append((model_download, model))
-    model_download.join()
-    RUNNING_DOWNLOADS.remove((model_download, model))
-
-
-def try_to_download_model(model: str, progress: DictProxy, models_dir=None) -> None:
-    """A function that tries to download the specified model and sends any occurring errors to the frontend."""
-
-    if models_dir is None:
-        models_dir = MODELS_DIR
-    try:
-        check_internet()
-        get_model(model, progress, models_dir, REQUIRED_MODELS_DIR)
-
-    except Exception:
-        remove_model(model)
+        except Exception as e:
+            remove_model(model)
+            close_dialog_download()
+            dialog_error(str(e), traceback.format_exc())
 
 
 def check_internet() -> None:
@@ -123,44 +111,3 @@ def check_internet() -> None:
         raise ConnectionError(
             "We cannot reach Hugging Face. Most likely you are not connected to the internet."
         )
-
-
-def stop_all_downloads() -> None:
-    """A function that terminates all running download processes."""
-    download: StoppableThread
-    for download, model in RUNNING_DOWNLOADS:
-        download.stop()
-        download.join()
-        remove_model(model)
-    RUNNING_DOWNLOADS.clear()
-
-
-class StoppableThread(Thread):
-    def __init__(self, target=None, args=(), kwargs=None, daemon: bool | None = None):
-        super().__init__(target=target, args=args, kwargs=kwargs, daemon=daemon)
-        self.killed = False
-
-    def start(self):
-        self.__run_backup = self.run
-        self.run = self.__run
-        super().start()
-
-    def __run(self):
-        sys.settrace(self.globaltrace)
-        self.__run_backup()
-        self.run = self.__run_backup
-
-    def globaltrace(self, frame, event, arg):
-        if event == "call":
-            return self.localtrace
-        else:
-            return None
-
-    def localtrace(self, frame, event, arg):
-        if self.killed:
-            if event == "line":
-                raise SystemExit()
-        return self.localtrace
-
-    def stop(self):
-        self.killed = True
