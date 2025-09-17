@@ -5,7 +5,7 @@ from nicegui import ui
 from typer import Option, Typer
 from typing_extensions import Annotated
 
-from aTrain.models import start_model_download
+from aTrain.utils.models import start_model_download
 from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
 
 cli = Typer(help="CLI for aTrain.")

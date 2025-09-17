@@ -1,5 +1,5 @@
 from nicegui import app, ui
-from aTrain.models import read_transcription_models
+from aTrain.utils.models import read_transcription_models
 from aTrain_core.globals import REQUIRED_MODELS
 from aTrain.components.settings.language import update_language_options
 

@@ -1,6 +1,6 @@
 from nicegui import ui
 from aTrain.layouts.base import base_layout
-from aTrain.archive import load_faqs
+from aTrain.utils.archive import load_faqs
 
 
 @ui.page("/faq")

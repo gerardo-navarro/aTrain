@@ -1,6 +1,6 @@
 from nicegui import ui
 from aTrain.layouts.base import base_layout
-from aTrain.archive import (
+from aTrain.utils.archive import (
     read_archive,
     open_file_directory as show,
     delete_transcription as delete,

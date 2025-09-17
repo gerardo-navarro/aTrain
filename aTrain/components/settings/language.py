@@ -1,5 +1,5 @@
 from nicegui import ui, app
-from aTrain.models import model_languages
+from aTrain.utils.models import model_languages
 from aTrain_core.globals import REQUIRED_MODELS
 
 

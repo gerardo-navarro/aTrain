@@ -7,7 +7,7 @@ from aTrain.components.settings.speaker_count import input_num_speakers
 from aTrain.components.settings.speaker_detection import input_speaker_detection
 from aTrain.components.settings.advanced import advanced_settings
 from aTrain.layouts.base import base_layout
-from aTrain.transcription import start_transcription
+from aTrain.utils.transcription import start_transcription
 
 
 @ui.page("/")
