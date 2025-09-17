@@ -12,7 +12,7 @@ def page():
     transcriptions = read_archive()
 
     with base_layout():
-        with ui.row().classes("justify-between w-full items-center"):
+        with ui.row().classes("justify-between w-full"):
             ui.label("Archive").classes("text-lg text-dark font-bold")
             with ui.row():
                 btn_show_all = ui.button("Show All", color="dark")
