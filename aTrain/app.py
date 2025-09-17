@@ -1,11 +1,11 @@
 from importlib.resources import files
 
 from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
+from aTrain_core.load_resources import get_model
 from nicegui import ui
 from typer import Option, Typer
 from typing_extensions import Annotated
 
-from aTrain.utils.models import start_model_download
 from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
 
 cli = Typer(help="CLI for aTrain.")
@@ -15,7 +15,11 @@ cli = Typer(help="CLI for aTrain.")
 def init():
     """Download all required model for aTrain."""
     for model in REQUIRED_MODELS:
-        start_model_download(model=model, models_dir=REQUIRED_MODELS_DIR)
+        get_model(
+            model=model,
+            models_dir=REQUIRED_MODELS_DIR,
+            required_models_dir=REQUIRED_MODELS_DIR,
+        )
 
 
 @cli.command()
