@@ -51,11 +51,11 @@ async def start_transcription(file: events.UploadEventArguments):
             close_dialog_process()
             dialog_finished()
 
-        except (SubprocessException, ValueError) as e:
-            close_dialog_process()
-            dialog_error(error=str(e), traceback=traceback.format_exc())
-
         except BrokenProcessPool:
             setup_process_pool()
             close_dialog_process()
             ui.navigate.reload()
+
+        except Exception as e:
+            close_dialog_process()
+            dialog_error(error=str(e), traceback=traceback.format_exc())
