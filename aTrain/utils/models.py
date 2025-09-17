@@ -41,7 +41,8 @@ def read_downloaded_models() -> list:
 
 def read_transcription_models() -> list:
     all_models = read_downloaded_models()
-    all_models.remove("diarize")
+    while "diarize" in all_models:
+        all_models.remove("diarize")
     return all_models
 
 
