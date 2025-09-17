@@ -7,7 +7,7 @@ def input_num_speakers():
     with ui.column().classes("gap-2") as column:
         with ui.row(align_items="center").classes("w-full justify-between"):
             ui.label("Number of Speakers").classes("font-bold text-dark text-md")
-            ui.icon("help_outline", size="sm", color="grey").tooltip(TOOLTIP)
+            ui.icon("info_outline", size="sm", color="grey").tooltip(TOOLTIP)
         ui.separator()
         input = ui.number(min=0, value=0)
         input.classes("w-full")
