@@ -35,4 +35,4 @@ include = ["aTrain*"]
 aTrain = "aTrain.app:cli"
 
 [tool.setuptools.dynamic]
-version = { attr = "aTrain.app.__version__" }
+version = { attr = "aTrain.version.__version__" }
