@@ -1,3 +1,4 @@
+from aTrain_core.check_inputs import load_formats
 from nicegui import ui
 
 
@@ -25,7 +26,9 @@ class CustomUpload(ui.upload):
 
 
 def input_file() -> CustomUpload:
+    allowed_files = "".join(x for x in str(load_formats()) if x not in "[]'")
     uploader = CustomUpload().classes("hidden")
+    uploader.props(f"accept='{allowed_files}'")
 
     with ui.column().classes("gap-2"):
         ui.label("Select File").classes("font-bold text-dark text-md")
