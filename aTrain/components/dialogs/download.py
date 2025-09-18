@@ -10,7 +10,9 @@ def dialog_download(progress: DictProxy):
     global timer, dialog
     state = app.storage.client
     start_time = datetime.now()
-    timer = ui.timer(interval=1, callback=lambda: update_progress(progress, start_time))
+    timer = ui.timer(
+        interval=0.1, callback=lambda: update_progress(progress, start_time)
+    )
     with ui.dialog(value=True).props("persistent") as dialog, ui.card():
         ui.label("Download").classes("h2")
         ui.separator()
