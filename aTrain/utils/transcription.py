@@ -7,14 +7,12 @@ from aTrain_core.check_inputs import check_inputs_transcribe
 from aTrain_core.globals import REQUIRED_MODELS_DIR
 from aTrain_core.transcribe import prepare_transcription, transcribe
 from nicegui import app, events, run, ui
-from nicegui.run import SubprocessException
 from nicegui.run import setup as setup_process_pool
 from starlette.formparsers import MultiPartParser
 
 from aTrain.components.dialogs.error import dialog_error
 from aTrain.components.dialogs.finished import dialog_finished
 from aTrain.components.dialogs.process import close_dialog_process, dialog_process
-
 
 MultiPartParser.spool_max_size = 1024 * 1024 * 1024 * 10  # 10 GB file size limit
 
