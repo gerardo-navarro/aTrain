@@ -12,7 +12,8 @@ def advanced_settings(open: bool):
         settings_compute_type()
         settings_initial_prompt()
         btn_ok = ui.button("Ok", color="dark").props("unelevated no-caps")
-        btn_ok.on_click(dialog.delete)
+        btn_ok.on_click(dialog.close)
+        dialog.on("hide", dialog.delete)
 
 
 def settings_gpu():
