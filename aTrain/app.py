@@ -5,7 +5,7 @@ from aTrain_core.load_resources import get_model
 from nicegui import ui
 from typer import Option, Typer
 from typing_extensions import Annotated
-
+from wakepy import keep
 from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
 
 cli = Typer(help="CLI for aTrain.")
@@ -29,10 +29,11 @@ def start(
 ):
     """Start aTrain."""
     print("Running aTrain")
-    ui.run(
-        native=native,
-        reload=reload,
-        title="aTrain",
-        favicon=files("aTrain") / "static" / "favicon.ico",
-        window_size=(1280, 720) if native else None,
-    )
+    with keep.running():
+        ui.run(
+            native=native,
+            reload=reload,
+            title="aTrain",
+            favicon=files("aTrain") / "static" / "favicon.ico",
+            window_size=(1280, 720) if native else None,
+        )
