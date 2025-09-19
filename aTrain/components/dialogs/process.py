@@ -1,9 +1,9 @@
 from datetime import datetime
-from multiprocessing.managers import DictProxy
 from importlib.resources import files
+from multiprocessing.managers import DictProxy
+
 from nicegui import app, ui
 from nicegui.run import tear_down as stop_transcription
-
 
 GIF_PROCESS = files("aTrain") / "static" / "images" / "process.gif"
 
