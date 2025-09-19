@@ -80,7 +80,7 @@ def model_languages(model: str) -> dict:
 async def download_model(model: str, models_dir=MODELS_DIR):
     with Manager() as manager:
         progress = manager.dict({"current": 0, "total": 999999})
-        dialog_download(progress)
+        dialog_download(progress, model)
         try:
             check_internet()
             await run.cpu_bound(
