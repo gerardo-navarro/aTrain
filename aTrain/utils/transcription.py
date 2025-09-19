@@ -7,6 +7,7 @@ from aTrain_core.check_inputs import check_inputs_transcribe
 from aTrain_core.globals import REQUIRED_MODELS_DIR
 from aTrain_core.transcribe import prepare_transcription, transcribe
 from nicegui import app, events, run, ui
+from nicegui.run import SubprocessException
 from nicegui.run import setup as setup_process_pool
 from starlette.formparsers import MultiPartParser
 
@@ -55,6 +56,10 @@ async def start_transcription(file: events.UploadEventArguments):
             setup_process_pool()
             close_dialog_process()
             ui.navigate.reload()
+
+        except SubprocessException as e:
+            close_dialog_process()
+            dialog_error(error=e.original_message, traceback=e.original_traceback)
 
         except Exception as e:
             close_dialog_process()
