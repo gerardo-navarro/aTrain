@@ -22,8 +22,8 @@ dependencies = [
   "aTrain_core@git+https://github.com/JuergenFleiss/atrain_core.git@develop",
   "wakepy==0.7.2",
   "show-in-file-manager==1.1.4",
-  "typer",
-  "nicegui",
+  "typer==0.15.3",
+  "nicegui==2.21.1",
 ]
 
 [tool.setuptools.packages.find]
