@@ -48,7 +48,7 @@ async def start_transcription(file: events.UploadEventArguments):
                 required_models_dir=REQUIRED_MODELS_DIR,
             )
             close_dialog_process()
-            dialog_finished()
+            dialog_finished(file_id)
 
         except BrokenProcessPool:
             delete_transcription(file_id)
