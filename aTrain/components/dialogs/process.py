@@ -26,7 +26,7 @@ def dialog_process(progress: DictProxy):
             ui.label("").bind_text(state, "task")
         progress_bar = ui.linear_progress(show_value=False, color="dark")
         progress_bar.bind_value(state, "progress").props("animation-speed=500")
-        with ui.row().classes("w-full justify-between"):
+        with ui.row().classes("w-full justify-between items-center"):
             with ui.column().classes("gap-1"):
                 ui.label("").bind_text_from(
                     state, "GPU", lambda x: "Running on " + ("GPU" if x else "CPU")
