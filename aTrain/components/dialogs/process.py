@@ -25,7 +25,7 @@ def dialog_process(progress: DictProxy):
             lbl_task.bind_text_from(state, "task_number", lambda x: f"Task {x}:")
             ui.label("").bind_text(state, "task")
         progress_bar = ui.linear_progress(show_value=False, color="dark")
-        progress_bar.bind_value(state, "progress")
+        progress_bar.bind_value(state, "progress").props("animation-speed=500")
         with ui.row().classes("w-full justify-between"):
             with ui.column().classes("gap-1"):
                 ui.label("").bind_text_from(
