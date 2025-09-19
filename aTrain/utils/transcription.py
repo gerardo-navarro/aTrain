@@ -13,6 +13,7 @@ from starlette.formparsers import MultiPartParser
 from aTrain.components.dialogs.error import dialog_error
 from aTrain.components.dialogs.finished import dialog_finished
 from aTrain.components.dialogs.process import close_dialog_process, dialog_process
+from aTrain.utils.archive import delete_transcription
 
 MultiPartParser.spool_max_size = 1024 * 1024 * 1024 * 10  # 10 GB file size limit
 
@@ -50,6 +51,7 @@ async def start_transcription(file: events.UploadEventArguments):
             dialog_finished()
 
         except BrokenProcessPool:
+            delete_transcription(file_id)
             setup_process_pool()
             close_dialog_process()
             ui.navigate.reload()
