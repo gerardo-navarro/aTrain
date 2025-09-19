@@ -31,7 +31,7 @@ def dialog_process(progress: DictProxy):
                 ui.label("").bind_text_from(
                     state, "GPU", lambda x: "Running on " + ("GPU" if x else "CPU")
                 )
-                ui.label("").bind_text(state, "timer")
+                ui.label("").bind_text_from(state, "timer", lambda x: f"Time: {x}")
             btn_stop = ui.button("stop", color="dark").props("unelevated no-caps")
 
         btn_stop.on_click(stop_transcription)
