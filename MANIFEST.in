@@ -1,2 +1,1 @@
 recursive-include aTrain/static *
-recursive-include aTrain/templates *

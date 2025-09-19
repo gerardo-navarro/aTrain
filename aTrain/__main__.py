@@ -1,4 +1,4 @@
-from .app import run_app
+from aTrain.app import cli
 
 if __name__ == "__main__":
-    run_app()
+    cli()
