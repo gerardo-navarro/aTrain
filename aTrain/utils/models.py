@@ -9,6 +9,7 @@ from aTrain_core.check_inputs import load_languages
 from aTrain_core.globals import MODELS_DIR, REQUIRED_MODELS_DIR
 from aTrain_core.load_resources import get_model, load_model_config_file, remove_model
 from nicegui import run, ui
+from nicegui.run import SubprocessException
 from nicegui.run import setup as setup_process_pool
 
 from aTrain.components.dialogs.download import close_dialog_download, dialog_download
@@ -98,6 +99,11 @@ async def download_model(model: str, models_dir=MODELS_DIR):
             setup_process_pool()
             close_dialog_download()
             ui.navigate.reload()
+
+        except SubprocessException as e:
+            remove_model(model)
+            close_dialog_download()
+            dialog_error(error=e.original_message, traceback=e.original_traceback)
 
         except Exception as e:
             remove_model(model)
