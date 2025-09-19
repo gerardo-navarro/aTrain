@@ -1,5 +1,6 @@
-from nicegui import ui
 from importlib.resources import files
+
+from nicegui import ui
 
 ERROR_GIF = files("aTrain") / "static" / "images" / "warning.gif"
 
