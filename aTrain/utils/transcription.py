@@ -24,6 +24,7 @@ async def start_transcription(file: events.UploadEventArguments):
         _, file_id, timestamp = prepare_transcription(Path(file.name))
         state = app.storage.client
         try:
+            raise ValueError("This is a test error")
             check_inputs_transcribe(
                 file=file.name,
                 model=state.get("model"),
