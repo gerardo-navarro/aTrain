@@ -2,7 +2,7 @@ from importlib.resources import files
 
 from nicegui import ui
 
-ERROR_GIF = files("aTrain") / "static" / "images" / "warning.gif"
+GIF_ERROR = files("aTrain") / "static" / "images" / "warning.gif"
 
 
 def dialog_error(error: str, traceback: str):
@@ -10,7 +10,7 @@ def dialog_error(error: str, traceback: str):
         card.classes("w-[500px] p-8 gap-3")
         ui.label("We encountered an error!").classes("font-bold text-dark text-lg")
         ui.separator()
-        ui.image(ERROR_GIF).classes("w-1/2 h-1/2 mx-auto")
+        ui.image(GIF_ERROR).classes("w-1/2 h-1/2 mx-auto")
         with ui.column().classes("gap-1"):
             ui.label("The following error occured:").classes("font-bold text-dark")
             ui.label(error)
