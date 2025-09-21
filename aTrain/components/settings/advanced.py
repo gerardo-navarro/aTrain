@@ -8,15 +8,15 @@ def advanced_settings(open: bool):
         dialog.props("position=right full-height").classes("[&>*]:p-0")
         card.props("square").classes("w-72 xl:w-96 p-6 gap-6")
         ui.label("Advanced Settings").classes("text-lg text-dark font-bold")
-        settings_gpu()
-        settings_compute_type()
-        settings_initial_prompt()
+        input_gpu()
+        input_compute_type()
+        input_initial_prompt()
         btn_ok = ui.button("Ok", color="dark").props("unelevated no-caps")
         btn_ok.on_click(dialog.close)
         dialog.on("hide", dialog.delete)
 
 
-def settings_gpu():
+def input_gpu():
     tooltip = "GPU acceleration is only available on cuda-enabled NVIDIA GPUs"
     with ui.column().classes("w-full gap-2"):
         with ui.row(align_items="center").classes("w-full justify-between"):
@@ -31,7 +31,7 @@ def settings_gpu():
     switch_gpu.on_value_change(set_compute_options)
 
 
-def settings_compute_type():
+def input_compute_type():
     global select_compute
     tooltip = "Int8 is the only option on CPU"
     with ui.column().classes("w-full gap-2"):
@@ -45,7 +45,7 @@ def settings_compute_type():
     select_compute.bind_value(app.storage.client, "compute_type")
 
 
-def settings_initial_prompt():
+def input_initial_prompt():
     with ui.column().classes("w-full gap-2"):
         ui.label("Initial Prompt").classes("font-bold text-dark")
         ui.separator()
