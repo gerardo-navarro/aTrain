@@ -1,10 +1,10 @@
 from nicegui import ui
+
+from aTrain.components.dialogs.delete import dialog_delete
 from aTrain.layouts.base import base_layout
-from aTrain.utils.archive import (
-    read_archive,
-    open_file_directory as show,
-    delete_transcription as delete,
-)
+from aTrain.utils.archive import delete_transcription as delete
+from aTrain.utils.archive import open_file_directory as show
+from aTrain.utils.archive import read_archive
 
 
 @ui.page("/archive")
@@ -21,7 +21,7 @@ def page():
 
                 btn_del_all = ui.button("Delete All", color="gray-100")
                 btn_del_all.props("size=0.8rem unelevated no-caps")
-                btn_del_all.on_click(lambda: (delete("all"), ui.navigate.reload()))
+                btn_del_all.on_click(dialog_delete)
 
         with ui.list().classes("w-full").props("separator"):
             with ui.item():
