@@ -19,7 +19,7 @@ def dialog_finished(file_id: str):
         ui.separator()
         with ui.row().classes("justify-between w-full items-center"):
             ui.label("").bind_text_from(
-                state, "timer", lambda x: f"We transcribed your file in {x}"
+                state, "time", lambda x: f"We transcribed your file in {x}"
             )
             with ui.row():
                 btn_open = ui.button("Open", color="gray-200")
