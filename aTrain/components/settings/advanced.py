@@ -32,7 +32,7 @@ def input_gpu():
 
 
 def input_compute_type():
-    global select_compute
+    state = app.storage.client
     tooltip = "Int8 is the only option on CPU"
     with ui.column().classes("w-full gap-2"):
         with ui.row(align_items="center").classes("w-full justify-between"):
@@ -41,8 +41,9 @@ def input_compute_type():
         ui.separator()
         select_compute = ui.select(options=[])
         select_compute.props("filled bg-color=gray-100 color=dark").classes("w-full")
-        set_compute_options()
     select_compute.bind_value(app.storage.client, "compute_type")
+    state["select_compute"] = select_compute
+    set_compute_options()
 
 
 def input_initial_prompt():
@@ -55,6 +56,8 @@ def input_initial_prompt():
 
 
 def set_compute_options():
+    state = app.storage.client
+    select_compute: ui.select = state["select_compute"]
     if app.storage.client["GPU"]:
         options = [x.value for x in ComputeType]
     else:

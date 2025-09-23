@@ -9,13 +9,13 @@ GIF_PROCESS = files("aTrain") / "static" / "images" / "process.gif"
 
 
 def dialog_process(progress: DictProxy):
-    global timer, dialog
     state = app.storage.client
     start_time = datetime.now()
-    timer = ui.timer(
+    state["timer_process"] = ui.timer(
         interval=0.1, callback=lambda: update_progress(progress, start_time)
     )
     with ui.dialog(value=True).props("persistent") as dialog, ui.card() as card:
+        state["dialog_process"] = dialog
         card.classes("w-[500px] p-8 gap-3")
         ui.label("We are working on it!").classes("font-bold text-dark text-lg")
         ui.separator()
@@ -31,7 +31,7 @@ def dialog_process(progress: DictProxy):
                 ui.label("").bind_text_from(
                     state, "GPU", lambda x: "Running on " + ("GPU" if x else "CPU")
                 )
-                ui.label("").bind_text_from(state, "timer", lambda x: f"Time: {x}")
+                ui.label("").bind_text_from(state, "time", lambda x: f"Time: {x}")
             btn_stop = ui.button("stop", color="dark").props("unelevated no-caps")
 
         btn_stop.on_click(stop_transcription)
@@ -55,9 +55,12 @@ def update_timer(start_time: datetime):
     total_seconds = int(timedelta.total_seconds())
     hours, remainder = divmod(total_seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
-    state["timer"] = f"{hours:02}:{minutes:02}:{seconds:02}"
+    state["time"] = f"{hours:02}:{minutes:02}:{seconds:02}"
 
 
 def close_dialog_process():
-    timer.cancel()
-    dialog.delete()
+    state = app.storage.client
+    timer_process: ui.timer = state["timer_process"]
+    timer_process.cancel()
+    dialog_process: ui.dialog = state["dialog_process"]
+    dialog_process.delete()
