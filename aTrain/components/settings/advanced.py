@@ -32,15 +32,17 @@ def input_gpu():
 
 
 def input_compute_type():
+    state = app.storage.client
     tooltip = "Int8 is the only option on CPU"
     with ui.column().classes("w-full gap-2"):
         with ui.row(align_items="center").classes("w-full justify-between"):
             ui.label("Compute Type").classes("font-bold text-dark")
             ui.icon("info_outline", size="sm", color="grey").tooltip(tooltip)
         ui.separator()
-        select = ui.select(options=[]).mark("select_compute")
+        value = state.get("compute_type") or ComputeType.INT8.value
+        select = ui.select(options=[x.value for x in ComputeType], value=value)
         select.props("filled bg-color=gray-100 color=dark").classes("w-full")
-    select.bind_value(app.storage.client, "compute_type")
+        select.bind_value(state, "compute_type").mark("select_compute")
     set_compute_options()
 
 
@@ -54,9 +56,8 @@ def input_initial_prompt():
 
 
 def set_compute_options():
-    if app.storage.client["GPU"]:
-        options = [x.value for x in ComputeType]
-    else:
-        options = [ComputeType.INT8.value]
+    state = app.storage.client
+    options = list(map(str, ComputeType)) if state["GPU"] else [ComputeType.INT8.value]
+    new_value = ComputeType.INT8.value if not state["GPU"] else state["compute_type"]
     for select in ElementFilter(marker="select_compute", kind=ui.select):
-        select.set_options(options, value=ComputeType.INT8.value)
+        select.set_options(options, value=new_value)
