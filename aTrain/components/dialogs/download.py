@@ -5,7 +5,7 @@ from multiprocessing.managers import DictProxy
 from nicegui import ElementFilter, app, ui
 from nicegui.run import tear_down as stop_download
 
-from aTrain.components.dialogs.process import update_timer
+from aTrain.components.dialogs.process import update_time
 
 GIF_DOWNLOAD = files("aTrain") / "static" / "images" / "download.gif"
 
@@ -32,7 +32,7 @@ def dialog_download(progress: DictProxy, model: str):
 
 def update_progress(progress: DictProxy, start_time: datetime):
     app.storage.client["progress"] = progress["current"] / progress["total"]
-    update_timer(start_time)
+    update_time(start_time)
 
 
 def close_dialog_download():

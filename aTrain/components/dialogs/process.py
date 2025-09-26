@@ -43,10 +43,10 @@ def update_progress(progress: DictProxy, start_time: datetime):
         state["task"]
     ]
     state["task_number"] = f"{current_task}/{total_tasks}"
-    update_timer(start_time)
+    update_time(start_time)
 
 
-def update_timer(start_time: datetime):
+def update_time(start_time: datetime):
     state = app.storage.client
     timedelta = datetime.now() - start_time
     total_seconds = int(timedelta.total_seconds())
