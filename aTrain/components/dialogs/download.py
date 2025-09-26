@@ -2,11 +2,10 @@ from datetime import datetime
 from importlib.resources import files
 from multiprocessing.managers import DictProxy
 
-from nicegui import app, ui
+from nicegui import ElementFilter, app, ui
 from nicegui.run import tear_down as stop_download
 
 from aTrain.components.dialogs.process import update_timer
-
 
 GIF_DOWNLOAD = files("aTrain") / "static" / "images" / "download.gif"
 
@@ -14,11 +13,9 @@ GIF_DOWNLOAD = files("aTrain") / "static" / "images" / "download.gif"
 def dialog_download(progress: DictProxy, model: str):
     state = app.storage.client
     start_time = datetime.now()
-    state["timer_download"] = ui.timer(
-        interval=0.1, callback=lambda: update_progress(progress, start_time)
-    )
-    with ui.dialog(value=True).props("persistent") as dialog, ui.card() as card:
-        state["dialog_download"] = dialog
+    ui.timer(0.1, lambda: update_progress(progress, start_time)).mark("timer_download")
+    with ui.dialog(value=True) as dialog, ui.card() as card:
+        dialog.props("persistent").mark("dialog_download")
         card.classes("w-[500px] p-8 gap-3")
         header_text = ui.label(f"We download the {model} model for you!")
         header_text.classes("font-bold text-dark text-lg")
@@ -39,8 +36,7 @@ def update_progress(progress: DictProxy, start_time: datetime):
 
 
 def close_dialog_download():
-    state = app.storage.client
-    timer_download: ui.timer = state["timer_download"]
-    timer_download.cancel()
-    dialog_download: ui.dialog = state["dialog_download"]
-    dialog_download.delete()
+    for timer in ElementFilter(marker="timer_download", kind=ui.timer):
+        timer.cancel()
+    for dialog in ElementFilter(marker="dialog_download", kind=ui.dialog):
+        dialog.delete()

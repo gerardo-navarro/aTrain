@@ -2,7 +2,7 @@ from datetime import datetime
 from importlib.resources import files
 from multiprocessing.managers import DictProxy
 
-from nicegui import app, ui
+from nicegui import ElementFilter, app, ui
 from nicegui.run import tear_down as stop_transcription
 
 GIF_PROCESS = files("aTrain") / "static" / "images" / "process.gif"
@@ -11,11 +11,9 @@ GIF_PROCESS = files("aTrain") / "static" / "images" / "process.gif"
 def dialog_process(progress: DictProxy):
     state = app.storage.client
     start_time = datetime.now()
-    state["timer_process"] = ui.timer(
-        interval=0.1, callback=lambda: update_progress(progress, start_time)
-    )
-    with ui.dialog(value=True).props("persistent") as dialog, ui.card() as card:
-        state["dialog_process"] = dialog
+    ui.timer(0.1, lambda: update_progress(progress, start_time)).mark("timer_process")
+    with ui.dialog(value=True) as dialog, ui.card() as card:
+        dialog.props("persistent").mark("dialog_process")
         card.classes("w-[500px] p-8 gap-3")
         ui.label("We are working on it!").classes("font-bold text-dark text-lg")
         ui.separator()
@@ -33,7 +31,6 @@ def dialog_process(progress: DictProxy):
                 )
                 ui.label("").bind_text_from(state, "time", lambda x: f"Time: {x}")
             btn_stop = ui.button("stop", color="dark").props("unelevated no-caps")
-
         btn_stop.on_click(stop_transcription)
 
 
@@ -59,8 +56,7 @@ def update_timer(start_time: datetime):
 
 
 def close_dialog_process():
-    state = app.storage.client
-    timer_process: ui.timer = state["timer_process"]
-    timer_process.cancel()
-    dialog_process: ui.dialog = state["dialog_process"]
-    dialog_process.delete()
+    for timer in ElementFilter(marker="timer_process", kind=ui.timer):
+        timer.cancel()
+    for dialog in ElementFilter(marker="dialog_process", kind=ui.dialog):
+        dialog.delete()

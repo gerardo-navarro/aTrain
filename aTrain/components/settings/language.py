@@ -1,4 +1,4 @@
-from nicegui import app, ui
+from nicegui import ElementFilter, app, ui
 
 from aTrain.utils.models import model_languages
 
@@ -10,17 +10,14 @@ def input_language():
     with ui.column().classes("gap-2"):
         ui.label("Select Language").classes("font-bold text-dark text-md")
         ui.separator()
-        with ui.select(language_options, value=default_language) as select_language:
-            select_language.classes("w-full")
-            select_language.props("filled bg-color=gray-100 color=dark")
-    select_language.bind_value(state, "language")
-    state["select_language"] = select_language
+        with ui.select(language_options, value=default_language) as select:
+            select.classes("w-full").props("filled bg-color=gray-100 color=dark")
+            select.mark("select_language").bind_value(state, "language")
 
 
 def update_language_options(model: str):
-    state = app.storage.client
-    select_language: ui.select = state["select_language"]
     new_options = model_languages(model)
     languages = list(new_options.keys())
-    new_value = x if (x := select_language.value) in languages else languages[0]
-    select_language.set_options(new_options, value=new_value)
+    for select in ElementFilter(marker="select_language", kind=ui.select):
+        new_value = select.value if select.value in languages else languages[0]
+        select.set_options(new_options, value=new_value)
