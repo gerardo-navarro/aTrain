@@ -12,7 +12,7 @@ def input_language():
             select.mark("select_language").bind_value(app.storage.general, "language")
 
 
-def get_language_options() -> tuple[list, str]:
+def get_language_options() -> dict:
     state = app.storage.general
     model = state.get("model")
     language = state.get("language")

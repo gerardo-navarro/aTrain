@@ -17,7 +17,7 @@ def input_model():
     input.on_value_change(update_language_options)
 
 
-def get_model_options() -> tuple[list, str]:
+def get_model_options() -> list:
     state = app.storage.general
     options = read_transcription_models()
     if state.get("model") in options:
