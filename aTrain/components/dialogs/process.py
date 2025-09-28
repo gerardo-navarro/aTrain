@@ -9,7 +9,7 @@ GIF_PROCESS = files("aTrain") / "static" / "images" / "process.gif"
 
 
 def dialog_process(progress: DictProxy):
-    state = app.storage.client
+    state = app.storage.general
     start_time = datetime.now()
     ui.timer(0.1, lambda: update_progress(progress, start_time)).mark("timer_process")
     with ui.dialog(value=True) as dialog, ui.card() as card:
@@ -35,7 +35,7 @@ def dialog_process(progress: DictProxy):
 
 
 def update_progress(progress: DictProxy, start_time: datetime):
-    state = app.storage.client
+    state = app.storage.general
     state["progress"] = progress["current"] / progress["total"]
     state["task"] = progress["task"]
     total_tasks = 3 if state["speaker_detection"] else 2
@@ -47,7 +47,7 @@ def update_progress(progress: DictProxy, start_time: datetime):
 
 
 def update_time(start_time: datetime):
-    state = app.storage.client
+    state = app.storage.general
     timedelta = datetime.now() - start_time
     total_seconds = int(timedelta.total_seconds())
     hours, remainder = divmod(total_seconds, 3600)

@@ -24,7 +24,7 @@ async def start_transcription(file: events.UploadEventArguments):
         progress = manager.dict({"task": "Prepare", "current": 0, "total": 999999})
         dialog_process(progress)
         _, file_id, timestamp = prepare_transcription(Path(file.name))
-        state = app.storage.client
+        state = app.storage.general
         try:
             check_inputs_transcribe(
                 file=file.name,

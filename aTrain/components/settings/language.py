@@ -4,7 +4,7 @@ from aTrain.utils.models import model_languages
 
 
 def input_language():
-    state = app.storage.client
+    state = app.storage.general
     language_options = model_languages(state["model"]) if state["model"] else []
     default_language = list(language_options.keys())[0] if language_options else None
     with ui.column().classes("gap-2"):

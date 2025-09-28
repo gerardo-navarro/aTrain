@@ -1,12 +1,14 @@
+import os
 from importlib.resources import files
+from pathlib import Path
 
-from aTrain_core.globals import REQUIRED_MODELS, REQUIRED_MODELS_DIR
+from aTrain_core.globals import ATRAIN_DIR, REQUIRED_MODELS, REQUIRED_MODELS_DIR
 from aTrain_core.load_resources import get_model
-from nicegui import ui
 from typer import Option, Typer
 from typing_extensions import Annotated
 from wakepy import keep
-from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
+
+os.environ["NICEGUI_STORAGE_PATH"] = str(Path(ATRAIN_DIR) / "settings")
 
 cli = Typer(help="CLI for aTrain.")
 
@@ -29,6 +31,10 @@ def start(
 ):
     """Start aTrain."""
     print("Running aTrain")
+    from nicegui import ui
+
+    from aTrain.pages import about, archive, faq, models, transcribe  # noqa: F401
+
     with keep.running():
         ui.run(
             native=native,

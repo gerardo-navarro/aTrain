@@ -7,4 +7,4 @@ def input_speaker_detection():
         ui.separator()
         input = ui.switch("Speaker Detection")
         input.props("color=dark")
-    input.bind_value(app.storage.client, "speaker_detection")
+    input.bind_value(app.storage.general, "speaker_detection")

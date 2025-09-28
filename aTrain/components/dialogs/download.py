@@ -11,7 +11,7 @@ GIF_DOWNLOAD = files("aTrain") / "static" / "images" / "download.gif"
 
 
 def dialog_download(progress: DictProxy, model: str):
-    state = app.storage.client
+    state = app.storage.general
     start_time = datetime.now()
     ui.timer(0.1, lambda: update_progress(progress, start_time)).mark("timer_download")
     with ui.dialog(value=True) as dialog, ui.card() as card:
@@ -31,7 +31,7 @@ def dialog_download(progress: DictProxy, model: str):
 
 
 def update_progress(progress: DictProxy, start_time: datetime):
-    app.storage.client["progress"] = progress["current"] / progress["total"]
+    app.storage.general["progress"] = progress["current"] / progress["total"]
     update_time(start_time)
 
 

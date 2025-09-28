@@ -9,7 +9,7 @@ GIF_FINISHED = files("aTrain") / "static" / "images" / "success.gif"
 
 
 def dialog_finished(file_id: str):
-    state = app.storage.client
+    state = app.storage.general
     with ui.dialog(value=True).props("persistent"), ui.card() as card:
         card.classes("w-[500px] p-8 gap-3")
         header_text = ui.label("We finished the transcription!")

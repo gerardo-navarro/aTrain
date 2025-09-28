@@ -27,12 +27,12 @@ def input_gpu():
             switch = ui.switch("GPU", value=True).props("color=dark")
         else:
             switch = ui.switch("GPU", value=False).props("color=dark disable")
-    switch.bind_value(app.storage.client, "GPU")
+    switch.bind_value(app.storage.general, "GPU")
     switch.on_value_change(set_compute_options)
 
 
 def input_compute_type():
-    state = app.storage.client
+    state = app.storage.general
     tooltip = "Int8 is the only option on CPU"
     with ui.column().classes("w-full gap-2"):
         with ui.row(align_items="center").classes("w-full justify-between"):
@@ -52,11 +52,11 @@ def input_initial_prompt():
         ui.separator()
         textarea = ui.textarea(placeholder="Type here...")
         textarea.props("color=dark autogrow clearable").classes("w-full")
-    textarea.bind_value(app.storage.client, "initial_prompt")
+    textarea.bind_value(app.storage.general, "initial_prompt")
 
 
 def set_compute_options():
-    state = app.storage.client
+    state = app.storage.general
     options = list(map(str, ComputeType)) if state["GPU"] else [ComputeType.INT8.value]
     new_value = ComputeType.INT8.value if not state["GPU"] else state["compute_type"]
     for select in ElementFilter(marker="select_compute", kind=ui.select):

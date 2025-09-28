@@ -13,5 +13,5 @@ def input_num_speakers():
         input.classes("w-full")
         input.props("filled bg-color=gray-100 color=dark")
 
-    input.bind_value(app.storage.client, "num_speakers")
-    column.bind_visibility(app.storage.client, "speaker_detection")
+    input.bind_value(app.storage.general, "num_speakers")
+    column.bind_visibility(app.storage.general, "speaker_detection")

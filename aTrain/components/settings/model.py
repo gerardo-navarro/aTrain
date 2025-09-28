@@ -23,5 +23,5 @@ def input_model():
             input.classes("w-full")
             input.props("filled bg-color=gray-100 color=dark")
 
-    input.bind_value(app.storage.client, "model")
+    input.bind_value(app.storage.general, "model")
     input.on_value_change(lambda: update_language_options(input.value))
