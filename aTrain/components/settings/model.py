@@ -6,22 +6,27 @@ from aTrain.utils.models import read_transcription_models
 
 
 def input_model():
-    models = read_transcription_models()
-    default_model = REQUIRED_MODELS[1]
-
-    if default_model in models:
-        active_model = default_model
-    elif models:
-        active_model = models[0]
-    else:
-        active_model = None
-
     with ui.column().classes("gap-2"):
         ui.label("Select Model").classes("font-bold text-dark text-md")
         ui.separator()
-        with ui.select(models, value=active_model).classes("w-full") as input:
+        with ui.select(options=get_model_options()).classes("w-full") as input:
             input.classes("w-full")
             input.props("filled bg-color=gray-100 color=dark")
 
     input.bind_value(app.storage.general, "model")
-    input.on_value_change(lambda: update_language_options(input.value))
+    input.on_value_change(update_language_options)
+
+
+def get_model_options() -> tuple[list, str]:
+    state = app.storage.general
+    options = read_transcription_models()
+    if state.get("model") in options:
+        active = state.get("model")
+    elif REQUIRED_MODELS[1] in options:
+        active = REQUIRED_MODELS[1]
+    elif options:
+        active = options[0]
+    else:
+        active = None
+    state["model"] = active
+    return options

@@ -17,6 +17,7 @@ def advanced_settings(open: bool):
 
 
 def input_gpu():
+    state = app.storage.general
     tooltip = "GPU acceleration is only available on cuda-enabled NVIDIA GPUs"
     with ui.column().classes("w-full gap-2"):
         with ui.row(align_items="center").classes("w-full justify-between"):
@@ -27,7 +28,8 @@ def input_gpu():
             switch = ui.switch("GPU", value=True).props("color=dark")
         else:
             switch = ui.switch("GPU", value=False).props("color=dark disable")
-    switch.bind_value(app.storage.general, "GPU")
+            state["GPU"] = False
+    switch.bind_value(state, "GPU")
     switch.on_value_change(set_compute_options)
 
 
