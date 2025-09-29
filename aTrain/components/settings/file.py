@@ -1,4 +1,4 @@
-from aTrain_core.check_inputs import load_formats
+from aTrain_core.settings import load_formats
 from nicegui import ui
 
 

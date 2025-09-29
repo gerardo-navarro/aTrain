@@ -5,7 +5,7 @@ import urllib.request
 from concurrent.futures.process import BrokenProcessPool
 from multiprocessing import Manager
 
-from aTrain_core.check_inputs import load_languages
+from aTrain_core.settings import load_languages
 from aTrain_core.globals import MODELS_DIR, REQUIRED_MODELS_DIR
 from aTrain_core.load_resources import get_model, load_model_config_file, remove_model
 from nicegui import run, ui

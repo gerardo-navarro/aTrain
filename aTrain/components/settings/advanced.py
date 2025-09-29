@@ -1,4 +1,4 @@
-from aTrain_core.check_inputs import ComputeType
+from aTrain_core.settings import ComputeType
 from nicegui import ElementFilter, app, ui
 from torch import cuda
 
