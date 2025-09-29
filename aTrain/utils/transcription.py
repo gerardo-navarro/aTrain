@@ -3,8 +3,7 @@ from concurrent.futures.process import BrokenProcessPool
 from multiprocessing import Manager
 from pathlib import Path
 
-from aTrain_core.check_inputs import check_inputs_transcribe
-from aTrain_core.globals import REQUIRED_MODELS_DIR
+from aTrain_core.settings import ComputeType, Device, Settings, check_inputs_transcribe
 from aTrain_core.transcribe import prepare_transcription, transcribe
 from nicegui import app, events, run, ui
 from nicegui.run import SubprocessException
@@ -26,28 +25,24 @@ async def start_transcription(file: events.UploadEventArguments):
         _, file_id, timestamp = prepare_transcription(Path(file.name))
         state = app.storage.general
         try:
-            check_inputs_transcribe(
-                file=file.name,
-                model=state.get("model"),
-                language=state.get("language"),
-                device="GPU" if state.get("GPU") else "cpu",
-            )
-            await run.cpu_bound(
-                transcribe,
-                audio_file=file.content,
+            settings = Settings(
+                file=file.content,
                 file_id=file_id,
+                file_name=file.name,
                 model=state.get("model"),
                 language=state.get("language"),
                 speaker_detection=state.get("speaker_detection"),
-                num_speakers=state.get("num_speakers") or "auto-detect",
-                device="GPU" if state.get("GPU") else "cpu",
-                compute_type=state.get("compute_type"),
+                speaker_count=state.get("num_speakers"),
+                device=Device.GPU if state.get("GPU") else Device.CPU,
+                compute_type=ComputeType(state.get("compute_type")),
                 timestamp=timestamp,
-                original_audio_filename=file.name,
                 initial_prompt=state.get("initial_prompt") or None,
                 progress=progress,
-                required_models_dir=REQUIRED_MODELS_DIR,
             )
+            check_inputs_transcribe(
+                settings.file_name, settings.model, settings.language, settings.device
+            )
+            await run.cpu_bound(transcribe, settings=settings)
             close_dialog_process()
             dialog_finished(file_id)
 
