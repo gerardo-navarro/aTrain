@@ -32,7 +32,7 @@ async def start_transcription(file: events.UploadEventArguments):
                 model=state.get("model"),
                 language=state.get("language"),
                 speaker_detection=state.get("speaker_detection"),
-                speaker_count=state.get("num_speakers"),
+                speaker_count=state.get("speaker_count"),
                 device=Device.GPU if state.get("GPU") else Device.CPU,
                 compute_type=ComputeType(state.get("compute_type")),
                 timestamp=timestamp,
