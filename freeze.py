@@ -2,7 +2,11 @@ import multiprocessing
 
 multiprocessing.freeze_support()
 
+
 if __name__ == "__main__":
     from aTrain import app
 
-    app.start()
+    try:
+        app.start()
+    except KeyboardInterrupt:
+        pass
