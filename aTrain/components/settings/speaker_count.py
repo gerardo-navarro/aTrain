@@ -9,7 +9,7 @@ def input_speaker_count():
             ui.label("Number of Speakers").classes("font-bold text-dark text-md")
             ui.icon("info_outline", size="sm", color="grey").tooltip(TOOLTIP)
         ui.separator()
-        input = ui.number(min=0, value=0)
+        input = ui.number(min=0, value=0, placeholder=0)
         input.classes("w-full")
         input.props("filled bg-color=gray-100 color=dark")
 
