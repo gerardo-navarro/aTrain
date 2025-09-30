@@ -8,6 +8,7 @@ datas = []
 datas += collect_data_files('aTrain')
 datas += [(str(files("speechbrain").joinpath("")),'speechbrain')]
 datas += collect_data_files('torch')
+datas += collect_data_files('nicegui')
 datas += collect_data_files('lightning')
 datas += collect_data_files('lightning_fabric')
 datas += collect_data_files('lightning_utilities')
