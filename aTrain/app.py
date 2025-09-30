@@ -2,7 +2,7 @@ import os
 from importlib.resources import files
 from pathlib import Path
 
-from aTrain_core.globals import ATRAIN_DIR, REQUIRED_MODELS, REQUIRED_MODELS_DIR
+from aTrain_core.globals import ATRAIN_DIR, REQUIRED_MODELS
 from aTrain_core.load_resources import get_model
 from typer import Option, Typer
 from typing_extensions import Annotated
@@ -17,11 +17,7 @@ cli = Typer(help="CLI for aTrain.")
 def init():
     """Download all required model for aTrain."""
     for model in REQUIRED_MODELS:
-        get_model(
-            model=model,
-            models_dir=REQUIRED_MODELS_DIR,
-            required_models_dir=REQUIRED_MODELS_DIR,
-        )
+        get_model(model=model)
 
 
 @cli.command()

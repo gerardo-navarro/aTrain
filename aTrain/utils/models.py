@@ -78,19 +78,13 @@ def model_languages(model: str) -> dict:
     return languages_dict
 
 
-async def download_model(model: str, models_dir=MODELS_DIR):
+async def download_model(model: str):
     with Manager() as manager:
         progress = manager.dict({"current": 0, "total": 999999})
         dialog_download(progress, model)
         try:
             check_internet()
-            await run.cpu_bound(
-                get_model,
-                model=model,
-                progress=progress,
-                models_dir=models_dir,
-                required_models_dir=REQUIRED_MODELS_DIR,
-            )
+            await run.cpu_bound(get_model, model=model, progress=progress)
             close_dialog_download()
             ui.navigate.reload()
 
