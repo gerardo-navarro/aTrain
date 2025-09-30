@@ -41,7 +41,7 @@ hiddenimports += collect_submodules('pyannote')
 hiddenimports += collect_submodules('sklearn')
 
 a = Analysis(
-    ['build.py'],
+    ['freeze.py'],
     pathex=[],
     binaries=[],
     datas=datas,

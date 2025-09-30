@@ -32,21 +32,27 @@ datas += copy_metadata('huggingface-hub')
 datas += copy_metadata('pyyaml')
 datas += copy_metadata('pytorch_lightning')
 datas += copy_metadata('aTrain_core')
+datas += copy_metadata('spacy')
 
-hiddenimports = ['pytorch_lightning','pyyaml','huggingface-hub','speechbrain','pyannote','pytorch','lightning']
+hiddenimports = ['pytorch_lightning','pyyaml','huggingface-hub','speechbrain','pyannote','pytorch','lightning',]
 hiddenimports += collect_submodules('wakepy')
 hiddenimports += collect_submodules('speechbrain')
 hiddenimports += collect_submodules('pyannote')
 hiddenimports += collect_submodules('sklearn')
+hiddenimports += collect_submodules('spacy')
 
 a = Analysis(
-    ['build.py'],
+    ['freeze.py'],
     pathex=[],
     binaries=[],
     datas=datas,
     hiddenimports=hiddenimports,
     hookspath=[],
-    hooksconfig={},
+    hooksconfig={
+    "gstreamer": {
+    "include_plugins": ["coreelements", "ffmpeg", "good", "bad", "ugly", "base"]
+    }
+    },
     runtime_hooks=[],
     excludes=[],
     win_no_prefer_redirects=False,
