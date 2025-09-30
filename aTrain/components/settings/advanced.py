@@ -10,6 +10,7 @@ def advanced_settings(open: bool):
         ui.label("Advanced Settings").classes("text-lg text-dark font-bold")
         input_gpu()
         input_compute_type()
+        input_temperature()
         input_initial_prompt()
         btn = ui.button("Ok", color="dark").props("unelevated no-caps")
         btn.on_click(dialog.close)
@@ -46,6 +47,17 @@ def input_compute_type():
         select.props("filled bg-color=gray-100 color=dark").classes("w-full")
         select.bind_value(state, "compute_type").mark("select_compute")
     set_compute_options()
+
+
+def input_temperature():
+    with ui.column().classes("w-full gap-2"):
+        ui.label("Temperature").classes("font-bold text-dark")
+        ui.separator()
+        number = ui.number(
+            min=0.0, max=1.0, step=0.1, precision=1, placeholder=0.0, value=0.0
+        )
+        number.props("filled bg-color=gray-100 color=dark").classes("w-full")
+    number.bind_value(app.storage.general, "temperature")
 
 
 def input_initial_prompt():
