@@ -23,7 +23,7 @@
   answer: "If your language is not listed in aTrain, unfortunately, it is not supported. aTrain relies on transcription models developed by OpenAI, which only support a limited number of languages. Additionally, some of these models are optimized for specific languages, making it impossible to select a different language for transcription."
 
 - question: "Can I translate the transcription results into a different language than the one in the audio?"
-  answer: "aTrain can translate every transcription into English if you select English on audios in other languages. Translation in other languages is not supported."
+  answer: "aTrain can translate every transcription into English if you select English on audios in other languages. Translation in other languages is not supported. We recommend using large-v3 for more consistent results."
 
 - question: "Why does aTrain not always detect speakers correctly?"
   answer: "aTrain uses a speaker detection system that generally performs better, if the number of speakers is known. If you used the auto-detect option the results
