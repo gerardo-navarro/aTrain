@@ -9,9 +9,12 @@ ATRAIN_LOGO = files("aTrain") / "static" / "images" / "logo.svg"
 
 async def splash_screen():
     if "torch" not in sys.modules.keys():
-        with ui.column() as splash:
-            ui.image(ATRAIN_LOGO).props("height=30px width=80px fit=contain")
-            ui.spinner("dots", size="3em")
+        with ui.column().classes("gap-0") as splash:
+            splash.classes("w-full h-[90vh] items-center justify-center")
+            logo = ui.image(ATRAIN_LOGO).props("height=90px width=240px fit=contain")
+            logo.classes("mb-5")
+            ui.label("Starting Application").classes("text-dark")
+            ui.spinner("dots", size="2em", color="dark")
         await run.io_bound(importlib.import_module, name="torch")
         await run.io_bound(importlib.import_module, name="aTrain_core.transcribe")
         splash.delete()
