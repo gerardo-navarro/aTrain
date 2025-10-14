@@ -6,7 +6,7 @@ from aTrain.components.settings.language import input_language
 from aTrain.components.settings.model import input_model
 from aTrain.components.settings.speaker_count import input_speaker_count
 from aTrain.components.settings.speaker_detection import input_speaker_detection
-from aTrain.components.splash_screen import splash
+from aTrain.components.splash_screen import splash_screen
 from aTrain.layouts.base import base_layout
 from aTrain.utils.transcription import start_transcription
 
@@ -14,7 +14,7 @@ from aTrain.utils.transcription import start_transcription
 @ui.page("/")
 async def page(client: Client):
     await client.connected()
-    await splash()
+    await splash_screen()
     with base_layout():
         with ui.element("div").classes(
             "w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"

@@ -7,7 +7,7 @@ from nicegui import run, ui
 ATRAIN_LOGO = files("aTrain") / "static" / "images" / "logo.svg"
 
 
-async def splash():
+async def splash_screen():
     if "torch" not in sys.modules.keys():
         with ui.column() as splash:
             ui.image(ATRAIN_LOGO).props("height=30px width=80px fit=contain")
