@@ -1,6 +1,5 @@
 from aTrain_core.settings import ComputeType
 from nicegui import ElementFilter, app, ui
-from torch import cuda
 
 
 def advanced_settings(open: bool):
@@ -18,6 +17,8 @@ def advanced_settings(open: bool):
 
 
 def input_gpu():
+    from torch import cuda
+
     state = app.storage.general
     tooltip = "GPU acceleration is only available on cuda-enabled NVIDIA GPUs"
     with ui.column().classes("w-full gap-2"):

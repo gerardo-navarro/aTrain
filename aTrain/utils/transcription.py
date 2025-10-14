@@ -4,7 +4,6 @@ from multiprocessing import Manager
 from pathlib import Path
 
 from aTrain_core.settings import ComputeType, Device, Settings, check_inputs_transcribe
-from aTrain_core.transcribe import prepare_transcription, transcribe
 from nicegui import app, events, run, ui
 from nicegui.run import SubprocessException
 from nicegui.run import setup as setup_process_pool
@@ -19,6 +18,8 @@ MultiPartParser.spool_max_size = 1024 * 1024 * 1024 * 10  # 10 GB file size limi
 
 
 async def start_transcription(file: events.UploadEventArguments):
+    from aTrain_core.transcribe import prepare_transcription, transcribe
+
     with Manager() as manager:
         progress = manager.dict({"task": "Prepare", "current": 0, "total": 999999})
         dialog_process(progress)
