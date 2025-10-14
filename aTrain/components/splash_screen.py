@@ -15,6 +15,7 @@ async def splash_screen():
             logo.classes("mb-5")
             ui.label("Starting Application").classes("text-dark")
             ui.spinner("dots", size="2em", color="dark")
+        # Import in threads for improved startup speed
         await run.io_bound(importlib.import_module, name="torch")
         await run.io_bound(importlib.import_module, name="aTrain_core.transcribe")
         splash.delete()

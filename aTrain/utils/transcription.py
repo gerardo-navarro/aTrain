@@ -18,6 +18,7 @@ MultiPartParser.spool_max_size = 1024 * 1024 * 1024 * 10  # 10 GB file size limi
 
 
 async def start_transcription(file: events.UploadEventArguments):
+    # Lazy import for improved startup speed
     from aTrain_core.transcribe import prepare_transcription, transcribe
 
     with Manager() as manager:

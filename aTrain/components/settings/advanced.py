@@ -17,7 +17,7 @@ def advanced_settings(open: bool):
 
 
 def input_gpu():
-    from torch import cuda
+    from torch import cuda  # Lazy import for improved startup speed
 
     state = app.storage.general
     tooltip = "GPU acceleration is only available on cuda-enabled NVIDIA GPUs"
