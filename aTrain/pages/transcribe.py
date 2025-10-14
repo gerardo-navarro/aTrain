@@ -1,26 +1,20 @@
-from nicegui import ui, Client, run
-import importlib
+from nicegui import Client, ui
+
+from aTrain.components.settings.advanced import advanced_settings
 from aTrain.components.settings.file import input_file
 from aTrain.components.settings.language import input_language
 from aTrain.components.settings.model import input_model
 from aTrain.components.settings.speaker_count import input_speaker_count
 from aTrain.components.settings.speaker_detection import input_speaker_detection
-from aTrain.components.settings.advanced import advanced_settings
+from aTrain.components.splash_screen import splash
 from aTrain.layouts.base import base_layout
 from aTrain.utils.transcription import start_transcription
-import sys
 
 
 @ui.page("/")
 async def page(client: Client):
     await client.connected()
-    if "torch" not in sys.modules.keys():
-        with ui.column().classes("w-full h-full") as splash:
-            ui.spinner("dots", size="3em")
-            ui.label("Loading aTrain")
-        await run.io_bound(importlib.import_module, name="torch")
-        await run.io_bound(importlib.import_module, name="aTrain_core.transcribe")
-        splash.set_visibility(False)
+    await splash()
     with base_layout():
         with ui.element("div").classes(
             "w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
