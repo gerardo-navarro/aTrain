@@ -13,6 +13,15 @@ Cite the published paper if you used aTrain for your research: [Take the aTrain.
 ## Becoming a developer
 Please refer to [Developer wiki page](https://github.com/JuergenFleiss/aTrain/wiki/Development:-Branching,-contributing-and-releases) for the details on how to contribute to the project and other useful information for developers.
 
+### Quick Start with Docker
+For a quick development setup using Docker, see [DOCKER_SETUP.md](DOCKER_SETUP.md) for instructions on running aTrain in a containerized environment.
+
+```bash
+docker compose up --build
+```
+
+Then open http://localhost:5000 in your browser.
+
 
 ## About aTrain
 
