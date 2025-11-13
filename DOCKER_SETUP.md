@@ -53,6 +53,38 @@ make down
 docker compose down
 ```
 
+## Example Development Workflow
+
+Here's a typical development session:
+
+```bash
+# 1. Start the development environment
+make up
+
+# The application is now running at http://localhost:5000
+# Make changes to files in the aTrain/ directory
+
+# 2. View logs in real-time (in another terminal)
+make logs
+
+# 3. Access the container shell if needed
+make shell
+
+# Inside the container, you can:
+# - Run Python commands
+# - Install additional packages
+# - Debug issues
+
+# 4. Initialize models if needed (first time setup)
+make init-models
+
+# 5. When done, stop the environment
+make down
+
+# 6. To clean up everything including volumes
+make clean
+```
+
 ## Development Workflow
 
 ### Using Make Commands
@@ -106,6 +138,54 @@ make logs
 # or
 docker compose logs -f atrain
 ```
+
+## Common Development Tasks
+
+### Testing Code Changes
+
+1. Make changes to Python files in the `aTrain/` directory
+2. Flask will automatically reload with your changes
+3. Refresh your browser to see the updates
+
+### Adding New Dependencies
+
+1. Update `pyproject.toml` with new dependencies
+2. Rebuild the container:
+```bash
+make build
+make up
+```
+
+### Debugging
+
+To debug the application:
+
+```bash
+# View real-time logs
+make logs
+
+# Or enter the container for interactive debugging
+make shell
+
+# Inside the container, you can use Python debugger
+python -m pdb -m aTrain dev
+```
+
+### Running Python Scripts
+
+To run custom Python scripts inside the container:
+
+```bash
+docker compose exec atrain python your_script.py
+```
+
+### Testing with Sample Data
+
+Sample data is mounted at `/app/sample_data` inside the container. You can:
+
+1. Add audio files to the `sample_data/` directory
+2. Access them from the web interface
+3. Test transcription functionality
 
 ## Model Management
 
@@ -273,3 +353,32 @@ This Docker setup is designed for **development only**. For production deploymen
 ## Architecture Notes
 
 aTrain is designed as a desktop application using PyWebView to create a native window. In Docker development mode, it runs as a web application accessible via browser. The core functionality (transcription, speaker detection) remains the same in both modes.
+
+## Quick Reference
+
+### Essential Commands
+
+| Command | Description |
+|---------|-------------|
+| `make help` | Show all available commands |
+| `make up` | Start development environment |
+| `make down` | Stop development environment |
+| `make logs` | View application logs |
+| `make shell` | Access container shell |
+| `make build` | Rebuild the Docker image |
+| `make clean` | Remove all containers and volumes |
+| `make init-models` | Download required ML models |
+
+### File Locations (Inside Container)
+
+| Path | Description |
+|------|-------------|
+| `/app/aTrain/` | Application source code (mounted) |
+| `/app/sample_data/` | Sample audio files (mounted) |
+| `/app/models/` | Downloaded ML models (persisted) |
+| `/root/.cache/huggingface/` | Hugging Face model cache (persisted) |
+
+### URLs
+
+- Application: http://localhost:5000
+- Change port in `docker-compose.yml` if needed
