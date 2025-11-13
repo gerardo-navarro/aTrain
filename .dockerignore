@@ -41,6 +41,10 @@ aTrain/required_models/
 # Documentation
 docs/
 README.md
+DOCKER_SETUP.md
+
+# Build and development tools
+Makefile
 
 # Testing
 test.py

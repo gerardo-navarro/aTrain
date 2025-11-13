@@ -9,6 +9,23 @@ This guide explains how to set up and use the Docker development environment for
 
 ## Quick Start
 
+### Using Make (Recommended)
+
+If you have `make` installed, you can use the provided Makefile for easier commands:
+
+```bash
+# Show all available commands
+make help
+
+# Build and start the development environment
+make up
+
+# Or start in detached mode (runs in background)
+make up-d
+```
+
+### Using Docker Compose Directly
+
 1. **Build and start the development environment:**
 
 ```bash
@@ -31,16 +48,36 @@ http://localhost:5000
 
 Press `Ctrl+C` in the terminal, or run:
 ```bash
+make down
+# or
 docker compose down
 ```
 
 ## Development Workflow
+
+### Using Make Commands
+
+The Makefile provides convenient shortcuts:
+
+```bash
+make build          # Build the Docker image
+make up             # Start the development environment
+make up-d           # Start in detached mode (background)
+make down           # Stop the development environment
+make restart        # Restart the container
+make logs           # View logs
+make shell          # Open a bash shell in the container
+make clean          # Remove containers, networks, and volumes
+make init-models    # Initialize and download ML models
+```
 
 ### Building the Container
 
 If you make changes to dependencies in `pyproject.toml`, rebuild the container:
 
 ```bash
+make build
+# or
 docker compose build
 ```
 
@@ -53,6 +90,8 @@ The Docker setup mounts the `aTrain` directory as a volume, so any changes you m
 To execute commands inside the running container:
 
 ```bash
+make shell
+# or
 docker compose exec atrain bash
 ```
 
@@ -63,6 +102,8 @@ Once inside, you can run Python commands, install packages, etc.
 To view application logs:
 
 ```bash
+make logs
+# or
 docker compose logs -f atrain
 ```
 
@@ -73,6 +114,8 @@ Machine learning models are stored in a Docker volume named `atrain-models` to p
 To initialize and download required models:
 
 ```bash
+make init-models
+# or
 docker compose exec atrain python -m aTrain init
 ```
 

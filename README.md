@@ -17,6 +17,10 @@ Please refer to [Developer wiki page](https://github.com/JuergenFleiss/aTrain/wi
 For a quick development setup using Docker, see [DOCKER_SETUP.md](DOCKER_SETUP.md) for instructions on running aTrain in a containerized environment.
 
 ```bash
+# Using make (recommended)
+make up
+
+# Or using docker compose directly
 docker compose up --build
 ```
 
