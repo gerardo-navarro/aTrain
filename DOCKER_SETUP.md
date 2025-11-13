@@ -9,23 +9,6 @@ This guide explains how to set up and use the Docker development environment for
 
 ## Quick Start
 
-### Using Make (Recommended)
-
-If you have `make` installed, you can use the provided Makefile for easier commands:
-
-```bash
-# Show all available commands
-make help
-
-# Build and start the development environment
-make up
-
-# Or start in detached mode (runs in background)
-make up-d
-```
-
-### Using Docker Compose Directly
-
 1. **Build and start the development environment:**
 
 ```bash
@@ -48,8 +31,6 @@ http://localhost:5000
 
 Press `Ctrl+C` in the terminal, or run:
 ```bash
-make down
-# or
 docker compose down
 ```
 
@@ -59,16 +40,16 @@ Here's a typical development session:
 
 ```bash
 # 1. Start the development environment
-make up
+docker compose up --build
 
 # The application is now running at http://localhost:5000
 # Make changes to files in the aTrain/ directory
 
 # 2. View logs in real-time (in another terminal)
-make logs
+docker compose logs -f atrain
 
 # 3. Access the container shell if needed
-make shell
+docker compose exec atrain bash
 
 # Inside the container, you can:
 # - Run Python commands
@@ -76,40 +57,22 @@ make shell
 # - Debug issues
 
 # 4. Initialize models if needed (first time setup)
-make init-models
+docker compose exec atrain python -m aTrain init
 
 # 5. When done, stop the environment
-make down
+docker compose down
 
 # 6. To clean up everything including volumes
-make clean
+docker compose down -v
 ```
 
 ## Development Workflow
-
-### Using Make Commands
-
-The Makefile provides convenient shortcuts:
-
-```bash
-make build          # Build the Docker image
-make up             # Start the development environment
-make up-d           # Start in detached mode (background)
-make down           # Stop the development environment
-make restart        # Restart the container
-make logs           # View logs
-make shell          # Open a bash shell in the container
-make clean          # Remove containers, networks, and volumes
-make init-models    # Initialize and download ML models
-```
 
 ### Building the Container
 
 If you make changes to dependencies in `pyproject.toml`, rebuild the container:
 
 ```bash
-make build
-# or
 docker compose build
 ```
 
@@ -122,8 +85,6 @@ The Docker setup mounts the `aTrain` directory as a volume, so any changes you m
 To execute commands inside the running container:
 
 ```bash
-make shell
-# or
 docker compose exec atrain bash
 ```
 
@@ -134,8 +95,6 @@ Once inside, you can run Python commands, install packages, etc.
 To view application logs:
 
 ```bash
-make logs
-# or
 docker compose logs -f atrain
 ```
 
@@ -152,8 +111,8 @@ docker compose logs -f atrain
 1. Update `pyproject.toml` with new dependencies
 2. Rebuild the container:
 ```bash
-make build
-make up
+docker compose build
+docker compose up
 ```
 
 ### Debugging
@@ -162,10 +121,10 @@ To debug the application:
 
 ```bash
 # View real-time logs
-make logs
+docker compose logs -f atrain
 
 # Or enter the container for interactive debugging
-make shell
+docker compose exec atrain bash
 
 # Inside the container, you can use Python debugger
 python -m pdb -m aTrain dev
@@ -194,8 +153,6 @@ Machine learning models are stored in a Docker volume named `atrain-models` to p
 To initialize and download required models:
 
 ```bash
-make init-models
-# or
 docker compose exec atrain python -m aTrain init
 ```
 
@@ -360,14 +317,14 @@ aTrain is designed as a desktop application using PyWebView to create a native w
 
 | Command | Description |
 |---------|-------------|
-| `make help` | Show all available commands |
-| `make up` | Start development environment |
-| `make down` | Stop development environment |
-| `make logs` | View application logs |
-| `make shell` | Access container shell |
-| `make build` | Rebuild the Docker image |
-| `make clean` | Remove all containers and volumes |
-| `make init-models` | Download required ML models |
+| `docker compose up --build` | Build and start development environment |
+| `docker compose up -d` | Start in detached mode (background) |
+| `docker compose down` | Stop development environment |
+| `docker compose logs -f atrain` | View application logs |
+| `docker compose exec atrain bash` | Access container shell |
+| `docker compose build` | Rebuild the Docker image |
+| `docker compose down -v` | Remove all containers and volumes |
+| `docker compose exec atrain python -m aTrain init` | Download required ML models |
 
 ### File Locations (Inside Container)
 
