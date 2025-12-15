@@ -3,7 +3,7 @@ from aTrain.layouts.base import base_layout
 
 AUTHORS = ["Armin Haberl", "Jürgen Fleiß", "Dominik Kowald", "Stefan Thalmann"]
 DEVELOPERS = ["Armin Haberl", "Jürgen Fleiß", "Andrea Forster (former)"]
-MAIL = "mailto:bandas@uni-graz.at"
+MAIL = "mailto:atrain@uni-graz.at"
 PRIVACY = "https://business-analytics.uni-graz.at/en/research/atrain/privacy-policy/"
 LICENSE = "https://github.com/JuergenFleiss/aTrain/blob/main/LICENSE"
 
