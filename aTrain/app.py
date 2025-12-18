@@ -1,6 +1,5 @@
 import os
 from importlib.resources import files
-from pathlib import Path
 
 from aTrain_core.globals import ATRAIN_DIR, REQUIRED_MODELS
 from aTrain_core.load_resources import get_model
@@ -8,7 +7,7 @@ from typer import Option, Typer
 from typing_extensions import Annotated
 from wakepy import keep
 
-os.environ["NICEGUI_STORAGE_PATH"] = str(Path(ATRAIN_DIR) / "settings")
+os.environ["NICEGUI_STORAGE_PATH"] = str(ATRAIN_DIR / "settings")
 
 cli = Typer(help="CLI for aTrain.")
 
