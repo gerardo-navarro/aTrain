@@ -24,6 +24,7 @@ dependencies = [
   "show-in-file-manager==1.1.4",
   "typer==0.15.3",
   "nicegui==2.21.1",
+  "pywebview==6.1",
 ]
 
 [tool.setuptools.packages.find]
