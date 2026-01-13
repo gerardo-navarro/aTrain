@@ -2,6 +2,7 @@ import traceback
 from concurrent.futures.process import BrokenProcessPool
 from multiprocessing import Manager
 from pathlib import Path
+from typing import TypedDict, cast
 
 from aTrain_core.settings import ComputeType, Device, Settings, check_inputs_transcribe
 from nicegui import app, events, run, ui
@@ -17,6 +18,17 @@ from aTrain.utils.archive import delete_transcription
 MultiPartParser.spool_max_size = 1024 * 1024 * 1024 * 10  # 10 GB file size limit
 
 
+class State(TypedDict):
+    model: str
+    language: str
+    speaker_detection: bool
+    speaker_count: float | None
+    GPU: bool
+    compute_type: str
+    temperature: float | None
+    initial_prompt: str | None
+
+
 async def start_transcription(file: events.UploadEventArguments):
     # Lazy import for improved startup speed
     from aTrain_core.transcribe import prepare_transcription, transcribe
@@ -25,7 +37,7 @@ async def start_transcription(file: events.UploadEventArguments):
         progress = manager.dict({"task": "Prepare", "current": 0, "total": 999999})
         dialog_process(progress)
         _, file_id, timestamp = prepare_transcription(Path(file.name))
-        state = app.storage.general
+        state = cast(State, app.storage.general)
         try:
             settings = Settings(
                 file=file.content,
@@ -34,7 +46,7 @@ async def start_transcription(file: events.UploadEventArguments):
                 model=state.get("model"),
                 language=state.get("language"),
                 speaker_detection=state.get("speaker_detection"),
-                speaker_count=state.get("speaker_count"),
+                speaker_count=int(state.get("speaker_count") or 0) or None,
                 device=Device.GPU if state.get("GPU") else Device.CPU,
                 compute_type=ComputeType(state.get("compute_type")),
                 timestamp=timestamp,
