@@ -6,7 +6,6 @@ icon_path = str(files("aTrain.static").joinpath("favicon.ico"))
 
 datas = []
 datas += collect_data_files('aTrain')
-datas += [(str(files("speechbrain").joinpath("")),'speechbrain')]
 datas += collect_data_files('torch')
 datas += collect_data_files('nicegui')
 datas += collect_data_files('lightning')
@@ -34,9 +33,8 @@ datas += copy_metadata('pyyaml')
 datas += copy_metadata('pytorch_lightning')
 datas += copy_metadata('aTrain_core')
 
-hiddenimports = ['pytorch_lightning','pyyaml','huggingface-hub','speechbrain','pyannote','pytorch','lightning']
+hiddenimports = ['pytorch_lightning','pyyaml','huggingface-hub','pyannote','pytorch','lightning']
 hiddenimports += collect_submodules('wakepy')
-hiddenimports += collect_submodules('speechbrain')
 hiddenimports += collect_submodules('pyannote')
 hiddenimports += collect_submodules('sklearn')
 
