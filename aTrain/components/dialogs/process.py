@@ -41,9 +41,7 @@ def update_progress(progress: DictProxy, start_time: datetime):
     state["progress"] = progress["current"] / progress["total"]
     state["task"] = progress["task"]
     total_tasks = 3 if state["speaker_detection"] else 2
-    current_task = {"Prepare": 1, "Transcribe": 2, "Detect Speakers": 3, "Finish": 4}[
-        state["task"]
-    ]
+    current_task = {"Prepare": 1, "Transcribe": 2, "Detect Speakers": 3}[state["task"]]
     state["task_number"] = f"{current_task}/{total_tasks}"
     update_time(start_time)
 
