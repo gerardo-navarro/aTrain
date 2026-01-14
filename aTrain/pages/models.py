@@ -1,7 +1,8 @@
-from nicegui import ui
-from aTrain.layouts.base import base_layout
-from aTrain.utils.models import read_model_metadata, remove_model, download_model
 from aTrain_core.globals import REQUIRED_MODELS
+from nicegui import ui
+
+from aTrain.layouts.base import base_layout
+from aTrain.utils.models import download_model, read_model_metadata, remove_model
 
 
 @ui.page("/models")
@@ -22,7 +23,7 @@ def page():
                 with ui.item().classes("hover:bg-gray-100"):
                     with ui.grid(columns="minmax(0, 60px) 1fr 1fr 1fr") as grid:
                         grid.classes("w-full items-center")
-                        ui.label(i + 1).classes("font-light")
+                        ui.label(str(i + 1)).classes("font-light")
                         ui.label(model["model"]).classes("font-medium")
                         ui.label(model["size"]).classes("font-light")
                         with ui.row():

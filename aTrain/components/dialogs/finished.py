@@ -1,11 +1,12 @@
 from importlib.resources import files
+from pathlib import Path
+from typing import cast
 
 from nicegui import app, ui
 
 from aTrain.utils.archive import open_file_directory
 
-
-GIF_FINISHED = files("aTrain") / "static" / "images" / "success.gif"
+GIF_FINISHED = cast(Path, files("aTrain") / "static" / "images" / "success.gif")
 
 
 def dialog_finished(file_id: str):

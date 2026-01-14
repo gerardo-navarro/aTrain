@@ -16,7 +16,7 @@ def get_language_options() -> dict:
     state = app.storage.general
     model = state.get("model")
     language = state.get("language")
-    options = model_languages(model) if model else []
+    options = model_languages(model) if model else {}
     if language in options:
         active = language
     elif options:

@@ -1,9 +1,13 @@
-from nicegui import ui
 from importlib.resources import files
+from pathlib import Path
+from typing import cast
+
+from nicegui import ui
+
 from aTrain.version import __version__
 
-ATRAIN_LOGO = files("aTrain") / "static" / "images" / "logo.svg"
-GITHUB_LOGO = files("aTrain") / "static" / "images" / "github.svg"
+ATRAIN_LOGO = cast(Path, files("aTrain") / "static" / "images" / "logo.svg")
+GITHUB_LOGO = cast(Path, files("aTrain") / "static" / "images" / "github.svg")
 GITHUB_LINK = "https://github.com/JuergenFleiss/aTrain"
 
 

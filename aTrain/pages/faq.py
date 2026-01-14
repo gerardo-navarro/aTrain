@@ -1,4 +1,5 @@
 from nicegui import ui
+
 from aTrain.layouts.base import base_layout
 from aTrain.utils.archive import load_faqs
 

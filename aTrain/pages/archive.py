@@ -35,7 +35,7 @@ def page():
                 with ui.item().classes("hover:bg-gray-100"):
                     with ui.grid(columns="minmax(0, 60px) 1fr 1fr 1fr") as grid:
                         grid.classes("w-full items-center")
-                        ui.label(i + 1).classes("text-medium")
+                        ui.label(str(i + 1)).classes("text-medium")
                         ui.label(transcription["timestamp"]).classes("font-light")
                         ui.label(transcription["filename"]).classes("font-light")
                         with ui.row():

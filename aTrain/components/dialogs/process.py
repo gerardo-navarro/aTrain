@@ -1,11 +1,13 @@
 from datetime import datetime
 from importlib.resources import files
 from multiprocessing.managers import DictProxy
+from pathlib import Path
+from typing import cast
 
 from nicegui import ElementFilter, app, ui
 from nicegui.run import tear_down as stop_transcription
 
-GIF_PROCESS = files("aTrain") / "static" / "images" / "process.gif"
+GIF_PROCESS = cast(Path, files("aTrain") / "static" / "images" / "process.gif")
 
 
 def dialog_process(progress: DictProxy):

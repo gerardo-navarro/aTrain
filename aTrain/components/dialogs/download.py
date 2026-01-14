@@ -1,13 +1,15 @@
 from datetime import datetime
 from importlib.resources import files
 from multiprocessing.managers import DictProxy
+from pathlib import Path
+from typing import cast
 
 from nicegui import ElementFilter, app, ui
 from nicegui.run import tear_down as stop_download
 
 from aTrain.components.dialogs.process import update_time
 
-GIF_DOWNLOAD = files("aTrain") / "static" / "images" / "download.gif"
+GIF_DOWNLOAD = cast(Path, files("aTrain") / "static" / "images" / "download.gif")
 
 
 def dialog_download(progress: DictProxy, model: str):

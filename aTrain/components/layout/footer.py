@@ -1,7 +1,10 @@
-from nicegui import ui
 from importlib.resources import files
+from pathlib import Path
+from typing import cast
 
-BANDAS_LOGO = files("aTrain") / "static" / "images" / "Bandas_Logo.svg"
+from nicegui import ui
+
+BANDAS_LOGO = cast(Path, files("aTrain") / "static" / "images" / "Bandas_Logo.svg")
 PAPER_TEXT = "Using aTrain for research? Please cite our paper:"
 PAPER_TITLE = "Take the aTrain. Introducing an interface for the Accessible Transcription of Interviews"
 PAPER_LINK = "https://doi.org/10.1016/j.jbef.2024.100891"

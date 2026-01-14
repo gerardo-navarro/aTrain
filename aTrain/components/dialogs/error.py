@@ -1,8 +1,10 @@
 from importlib.resources import files
+from pathlib import Path
+from typing import cast
 
 from nicegui import ui
 
-GIF_ERROR = files("aTrain") / "static" / "images" / "warning.gif"
+GIF_ERROR = cast(Path, files("aTrain") / "static" / "images" / "warning.gif")
 
 
 def dialog_error(error: str, traceback: str):

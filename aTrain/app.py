@@ -1,5 +1,7 @@
 import os
 from importlib.resources import files
+from pathlib import Path
+from typing import cast
 from unittest.mock import patch
 
 from aTrain_core.globals import ATRAIN_DIR, REQUIRED_MODELS
@@ -10,6 +12,7 @@ from wakepy import keep
 
 with patch.dict(os.environ, NICEGUI_STORAGE_PATH=str(ATRAIN_DIR / "settings")):
     from nicegui import ui
+
     from aTrain.pages import about, archive, faq, models, transcribe  # noqa
 
 cli = Typer(help="CLI for aTrain.")
@@ -34,6 +37,6 @@ def start(
             native=native,
             reload=reload,
             title="aTrain",
-            favicon=files("aTrain") / "static" / "favicon.ico",
+            favicon=cast(Path, files("aTrain") / "static" / "favicon.ico"),
             window_size=(1280, 720) if native else None,
         )

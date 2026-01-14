@@ -1,10 +1,12 @@
 import importlib
 import sys
 from importlib.resources import files
+from pathlib import Path
+from typing import cast
 
 from nicegui import run, ui
 
-ATRAIN_LOGO = files("aTrain") / "static" / "images" / "logo.svg"
+ATRAIN_LOGO = cast(Path, files("aTrain") / "static" / "images" / "logo.svg")
 
 
 async def splash_screen():
