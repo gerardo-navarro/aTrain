@@ -50,7 +50,7 @@ async def start_transcription(file: events.UploadEventArguments):
                 device=Device.GPU if state.get("GPU") else Device.CPU,
                 compute_type=ComputeType(state.get("compute_type")),
                 timestamp=timestamp,
-                temperature=state.get("temperature") or 0.0,
+                temperature=state.get("temperature"),
                 initial_prompt=state.get("initial_prompt") or None,
                 progress=progress,
             )

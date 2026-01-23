@@ -54,10 +54,8 @@ def input_temperature():
     with ui.column().classes("w-full gap-2"):
         ui.label("Temperature").classes("font-bold text-dark")
         ui.separator()
-        number = ui.number(
-            min=0.0, max=1.0, step=0.1, precision=1, placeholder="0.0", value=0.0
-        )
-        number.props("filled bg-color=gray-100 color=dark").classes("w-full")
+        number = ui.number(min=0.0, max=1.0, step=0.1, precision=1, placeholder="auto")
+        number.props("filled bg-color=gray-100 color=dark clearable").classes("w-full")
     number.bind_value(app.storage.general, "temperature")
 
 
