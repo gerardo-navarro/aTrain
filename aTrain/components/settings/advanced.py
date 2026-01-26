@@ -56,7 +56,10 @@ def input_temperature():
         ui.separator()
         number = ui.number(min=0.0, max=1.0, step=0.1, precision=1, placeholder="auto")
         number.props("filled bg-color=gray-100 color=dark clearable").classes("w-full")
-    number.bind_value(app.storage.general, "temperature")
+    number.bind_value(app.storage.general, "temperature_override")  # <- New state name
+
+    # Fix wrong default setting from version 1.4.0, TODO: Revert state name to "temperature" in upcoming releases
+    app.storage.general["temperature"] = None
 
 
 def input_initial_prompt():

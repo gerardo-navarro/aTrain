@@ -25,7 +25,7 @@ class State(TypedDict):
     speaker_count: float | None
     GPU: bool
     compute_type: str
-    temperature: float | None
+    temperature_override: float | None
     initial_prompt: str | None
 
 
@@ -50,7 +50,7 @@ async def start_transcription(file: events.UploadEventArguments):
                 device=Device.GPU if state.get("GPU") else Device.CPU,
                 compute_type=ComputeType(state.get("compute_type")),
                 timestamp=timestamp,
-                temperature=state.get("temperature"),
+                temperature=state.get("temperature_override"),
                 initial_prompt=state.get("initial_prompt") or None,
                 progress=progress,
             )
