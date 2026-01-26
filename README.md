@@ -5,7 +5,7 @@ aTrain is a tool for automatically transcribing speech recordings utilizing stat
 
 **Windows (10 and 11)** users can install aTrain via the Microsoft app store ([Link](https://apps.microsoft.com/store/detail/atrain/9N15Q44SZNS2)) or by downloading the installer from the BANDAS-Center Website ([Link](https://business-analytics.uni-graz.at/de/forschen/atrain/download/)).
 
-Beta Versions available for **MacOS (Apple Silicon)** and **Debian** [here](https://business-analytics.uni-graz.at/en/research/atrain/download/). 
+Beta Versions available for **MacOS (Apple Silicon)** and **Debian** package [here](https://business-analytics.uni-graz.at/en/research/atrain/download/) (build for Ubuntu 24.04 LTS-based systems).
 
 
 Cite the published paper if you used aTrain for your research: [Take the aTrain. Introducing an Interface for the Accessible Transcription of Interviews.](https://www.sciencedirect.com/science/article/pii/S2214635024000066)
@@ -81,4 +81,5 @@ Planned in the near future.
 
 ## Attribution
 The GIFs and Icons in aTrain are from [tenor](https://tenor.com/) and [flaticon](https://www.flaticon.com/). 
+
 
