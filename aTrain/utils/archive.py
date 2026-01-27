@@ -1,5 +1,7 @@
 import os
 import shutil
+import subprocess
+import sys
 from importlib.resources import files
 
 import yaml
@@ -70,7 +72,10 @@ def open_file_directory(file_id) -> None:
     file_id = "" if file_id == "all" else file_id
     directory = os.path.join(TRANSCRIPT_DIR, file_id)
     if os.path.exists(directory):
-        show_in_file_manager(directory)
+        if sys.platform.startswith("linux"):
+            subprocess.run(["xdg-open", directory], check=False)
+        else:
+            show_in_file_manager(directory)
 
 
 def load_faqs() -> dict:
