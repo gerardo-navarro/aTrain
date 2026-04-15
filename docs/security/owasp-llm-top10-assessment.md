@@ -83,7 +83,7 @@ Gaps:
 - No hash/checksum verification for downloaded models
 - No Software Bill of Materials (SBOM) provided
 - No automated dependency vulnerability scanning (e.g., Dependabot, Safety)
-- Git tag pinning does not guarantee integrity (tags can be moved)
+- Git tag pinning does not guarantee integrity — tags are mutable and can be re-pointed in the upstream repository. Commit-SHA pinning would provide a stronger guarantee; tracked as a follow-up.
 
 ---
 
@@ -186,7 +186,7 @@ Current mitigations:
 - VAD detection is applied to remove silent segments to reduce hallucination
 Gaps:
 - No confidence scores displayed to the user
-- No explicit warning about potential transcription errors in the UI
+- No explicit warning about potential transcription errors in the UI (tracked in [#143](https://github.com/JuergenFleiss/aTrain/issues/143))
 
 ---
 
