@@ -100,7 +100,7 @@ This risk concerns attackers manipulating training data or model weights to alte
 - Whisper models are published by [Systran](https://huggingface.co/Systran) (faster-whisper) and [OpenAI](https://huggingface.co/openai)
 - pyannote models are published by the [pyannote project](https://huggingface.co/pyannote)
 - aTrain does not modify model weights
-- Users cannot upload custom models
+- Users can currently not add custom models. If this feature is introduced in the future (https://github.com/JuergenFleiss/aTrain/issues/72), this point needs to be revisited.
 
 If a model source (Hugging Face repository) were compromised, users could download tampered weights. This is mitigated by using well-known repositories with established trust, but no cryptographic verification is performed (see LLM03).
 
@@ -183,11 +183,10 @@ Current mitigations:
 - Users select the model size themselves, with larger models recommended for important work
 - Original audio is preserved alongside transcriptions for verification
 - Speaker diarization helps users verify who said what
-
+- VAD detection is applied to remove silent segments to reduce hallucination
 Gaps:
 - No confidence scores displayed to the user
 - No explicit warning about potential transcription errors in the UI
-- No hallucination detection for silent segments
 
 ---
 
